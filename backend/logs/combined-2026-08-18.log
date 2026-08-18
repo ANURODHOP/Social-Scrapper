@@ -1,0 +1,215 @@
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-18T10:12:15.639Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-18T10:12:15.640Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-18T10:12:15.641Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-18T10:12:15.720Z"}
+{"level":"info","message":"[TELEGRAM] Bot authentication: OK","service":"social-intelligence-platform","timestamp":"2026-08-18T10:12:16.403Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-18T10:12:16.406Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-18T10:12:16.407Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-18T10:12:16.407Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-18T10:12:16.407Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" started","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:00.713Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:00.717Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 1ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:00.718Z"}
+{"level":"info","message":"Scheduler[scan]: 1 profile(s), concurrency=2","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:00.756Z"}
+{"level":"info","message":"ScraperService: scraping profile fabriziorom (instagram)","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:00.766Z"}
+{"level":"info","message":"InstagramProvider.discoverPosts: profile fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:00.767Z"}
+{"level":"info","message":"InstagramHTTPClient.getRecentMedia: profileId=fabriziorom limit=50","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:00.767Z"}
+{"level":"warn","message":"InstagramHTTPClient.getRecentMedia: no timeline data intercepted for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:16.857Z"}
+{"level":"info","message":"ScraperService: discovered 0 posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:16.857Z"}
+{"level":"info","message":"ScraperService: created 0 new posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:16.857Z"}
+{"level":"info","message":"Scheduler[6fe10d94-bd5f-4597-b3c5-c21378f21d2e]: 12 unprocessed post(s)","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:16.861Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 140f889e-f15b-4f28-bc21-9e0a33e32958","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:16.861Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: post=3573008015040911575 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:16.864Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: loaded 10107241 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\140f889e-f15b-4f28-bc21-9e0a33e32958\\1786432328769.mp4","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:16.881Z"}
+{"level":"info","message":"FrameSamplerService: video=1786432328769.mp4 duration=20.5s interval=2s → 10 frame(s)","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:17.586Z"}
+{"level":"info","message":"FrameSamplerService: loaded and resized 10 frame(s) from C:\\Users\\Anurodh\\AppData\\Local\\Temp\\frames_1787048117586","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:19.706Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: extracted 10 frames in 2829ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:19.710Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: Generating deterministic report","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:19.773Z"}
+{"level":"info","message":"[REPORT] Starting deterministic report generation for https://www.instagram.com/p/DGV39vsIxjX/","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:19.774Z"}
+{"level":"info","message":"[REPORT] Detected strategies: Not identified from available content","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:19.775Z"}
+{"level":"info","message":"[REPORT] Detected CTA: Not identified","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:19.775Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: Deterministic report generated in 2ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:19.776Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: analysis saved → 93182db5-0b7b-4373-b612-68da2b1e4c43","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:19.785Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:19.794Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=140f889e-f15b-4f28-bc21-9e0a33e32958","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:19.795Z"}
+{"level":"info","message":"TelegramProvider.sendDocument: sent report.html to chatId=8327736931","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:20.965Z"}
+{"level":"info","message":"NotificationService: Telegram dispatch completed in 1170ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:20.965Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: Telegram sent in 1183ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:20.977Z"}
+{"aiLatencyMs":2,"bytesDownloaded":10107241,"framesExtracted":10,"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: ✅ pipeline complete in 4125ms","service":"social-intelligence-platform","telegramLatencyMs":1183,"timestamp":"2026-08-18T10:15:20.987Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 81f42434-3f07-48c5-8256-e29cc0ca9335","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:20.987Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: post=3749842155436013288 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:20.990Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: Carousel detected, found 3 media items","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:20.995Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: Generating deterministic report","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:20.995Z"}
+{"level":"info","message":"[REPORT] Starting deterministic report generation for https://www.instagram.com/p/DQKHZKmjHbo/","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:20.995Z"}
+{"level":"info","message":"[REPORT] Detected strategies: Not identified from available content","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:20.996Z"}
+{"level":"info","message":"[REPORT] Detected CTA: Not identified","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:20.996Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: Deterministic report generated in 4ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:21.000Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: analysis saved → 66257270-df1f-4eda-a47c-417ff4ceaf39","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:21.009Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:21.020Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=81f42434-3f07-48c5-8256-e29cc0ca9335","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:21.020Z"}
+{"level":"info","message":"TelegramProvider.sendDocument: sent report.html to chatId=8327736931","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.194Z"}
+{"level":"info","message":"NotificationService: Telegram dispatch completed in 3174ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.194Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: Telegram sent in 3181ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.201Z"}
+{"aiLatencyMs":4,"bytesDownloaded":404125,"framesExtracted":3,"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: ✅ pipeline complete in 3220ms","service":"social-intelligence-platform","telegramLatencyMs":3181,"timestamp":"2026-08-18T10:15:24.207Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 0b821b09-ab0e-4fd3-9fbc-8be1009a9a57","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.207Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: post=3958038169587417986 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.210Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: loaded 126986 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\0b821b09-ab0e-4fd3-9fbc-8be1009a9a57\\1786432328296.jpg","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.213Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: resized image → 52711 bytes","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.239Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: Generating deterministic report","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.239Z"}
+{"level":"info","message":"[REPORT] Starting deterministic report generation for https://www.instagram.com/p/Dbtxr6hsgOC/","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.239Z"}
+{"level":"info","message":"[REPORT] Detected strategies: Promotional","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.240Z"}
+{"level":"info","message":"[REPORT] Detected CTA: Not identified","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.240Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: Deterministic report generated in 1ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.240Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: analysis saved → a535088e-45ae-4aca-9314-cf904fc7c014","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.246Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.255Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=0b821b09-ab0e-4fd3-9fbc-8be1009a9a57","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:24.255Z"}
+{"level":"info","message":"TelegramProvider.sendDocument: sent report.html to chatId=8327736931","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.065Z"}
+{"level":"info","message":"NotificationService: Telegram dispatch completed in 810ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.065Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: Telegram sent in 815ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.070Z"}
+{"aiLatencyMs":1,"bytesDownloaded":126986,"framesExtracted":1,"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: ✅ pipeline complete in 869ms","service":"social-intelligence-platform","telegramLatencyMs":815,"timestamp":"2026-08-18T10:15:25.076Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post b517ecf0-b533-4be3-96ca-e4b9fe643b0a","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.077Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: post=3960749904771248828 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.080Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: Carousel detected, found 4 media items","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.086Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: Generating deterministic report","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.086Z"}
+{"level":"info","message":"[REPORT] Starting deterministic report generation for https://www.instagram.com/p/Db3aQ2uDXK8/","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.086Z"}
+{"level":"info","message":"[REPORT] Detected strategies: Giveaway/Contest","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.087Z"}
+{"level":"info","message":"[REPORT] Detected CTA: Not identified","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.087Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: Deterministic report generated in 5ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.092Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: analysis saved → 92d2f6cd-e107-4fcf-938a-550a9e99d57d","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.098Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.111Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=b517ecf0-b533-4be3-96ca-e4b9fe643b0a","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:25.112Z"}
+{"level":"info","message":"TelegramProvider.sendDocument: sent report.html to chatId=8327736931","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.054Z"}
+{"level":"info","message":"NotificationService: Telegram dispatch completed in 3942ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.055Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: Telegram sent in 3949ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.060Z"}
+{"aiLatencyMs":5,"bytesDownloaded":684269,"framesExtracted":4,"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: ✅ pipeline complete in 3990ms","service":"social-intelligence-platform","telegramLatencyMs":3949,"timestamp":"2026-08-18T10:15:29.066Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post fe15c175-4db7-4f2a-9126-e37aee6b82ab","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.066Z"}
+{"level":"info","message":"PipelineWorker[fe15c175-4db7-4f2a-9126-e37aee6b82ab]: post=3960795281889292619 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.069Z"}
+{"level":"info","message":"PipelineWorker[fe15c175-4db7-4f2a-9126-e37aee6b82ab]: Carousel detected, found 3 media items","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.074Z"}
+{"level":"info","message":"PipelineWorker[fe15c175-4db7-4f2a-9126-e37aee6b82ab]: Generating deterministic report","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.074Z"}
+{"level":"info","message":"[REPORT] Starting deterministic report generation for https://www.instagram.com/p/Db3klLdDfFL/","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.074Z"}
+{"level":"info","message":"[REPORT] Detected strategies: Promotional","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.074Z"}
+{"level":"info","message":"[REPORT] Detected CTA: Not identified","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.075Z"}
+{"level":"info","message":"PipelineWorker[fe15c175-4db7-4f2a-9126-e37aee6b82ab]: Deterministic report generated in 4ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.078Z"}
+{"level":"info","message":"PipelineWorker[fe15c175-4db7-4f2a-9126-e37aee6b82ab]: analysis saved → 6b3248ae-ec41-496f-b898-259b3e34884e","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.085Z"}
+{"level":"info","message":"PipelineWorker[fe15c175-4db7-4f2a-9126-e37aee6b82ab]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.098Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=fe15c175-4db7-4f2a-9126-e37aee6b82ab","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:29.098Z"}
+{"level":"info","message":"TelegramProvider.sendDocument: sent report.html to chatId=8327736931","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.762Z"}
+{"level":"info","message":"NotificationService: Telegram dispatch completed in 2665ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.763Z"}
+{"level":"info","message":"PipelineWorker[fe15c175-4db7-4f2a-9126-e37aee6b82ab]: Telegram sent in 2675ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.773Z"}
+{"aiLatencyMs":4,"bytesDownloaded":465107,"framesExtracted":3,"level":"info","message":"PipelineWorker[fe15c175-4db7-4f2a-9126-e37aee6b82ab]: ✅ pipeline complete in 2712ms","service":"social-intelligence-platform","telegramLatencyMs":2675,"timestamp":"2026-08-18T10:15:31.778Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 50cf949a-3716-4927-b274-2d16b6820dc8","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.778Z"}
+{"level":"info","message":"PipelineWorker[50cf949a-3716-4927-b274-2d16b6820dc8]: post=3960801451276811581 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.780Z"}
+{"level":"info","message":"PipelineWorker[50cf949a-3716-4927-b274-2d16b6820dc8]: loaded 173459 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\50cf949a-3716-4927-b274-2d16b6820dc8\\1786432329820.jpg","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.782Z"}
+{"level":"info","message":"PipelineWorker[50cf949a-3716-4927-b274-2d16b6820dc8]: resized image → 85371 bytes","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.809Z"}
+{"level":"info","message":"PipelineWorker[50cf949a-3716-4927-b274-2d16b6820dc8]: Generating deterministic report","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.809Z"}
+{"level":"info","message":"[REPORT] Starting deterministic report generation for https://www.instagram.com/p/Db3l-9JNL09/","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.810Z"}
+{"level":"info","message":"[REPORT] Detected strategies: Not identified from available content","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.810Z"}
+{"level":"info","message":"[REPORT] Detected CTA: Not identified","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.810Z"}
+{"level":"info","message":"PipelineWorker[50cf949a-3716-4927-b274-2d16b6820dc8]: Deterministic report generated in 1ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.810Z"}
+{"level":"info","message":"PipelineWorker[50cf949a-3716-4927-b274-2d16b6820dc8]: analysis saved → a0e298b6-d8ad-4560-9ecb-8402d18652a5","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.817Z"}
+{"level":"info","message":"PipelineWorker[50cf949a-3716-4927-b274-2d16b6820dc8]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.826Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=50cf949a-3716-4927-b274-2d16b6820dc8","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:31.827Z"}
+{"level":"info","message":"TelegramProvider.sendDocument: sent report.html to chatId=8327736931","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.639Z"}
+{"level":"info","message":"NotificationService: Telegram dispatch completed in 812ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.640Z"}
+{"level":"info","message":"PipelineWorker[50cf949a-3716-4927-b274-2d16b6820dc8]: Telegram sent in 818ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.646Z"}
+{"aiLatencyMs":1,"bytesDownloaded":173459,"framesExtracted":1,"level":"info","message":"PipelineWorker[50cf949a-3716-4927-b274-2d16b6820dc8]: ✅ pipeline complete in 872ms","service":"social-intelligence-platform","telegramLatencyMs":818,"timestamp":"2026-08-18T10:15:32.650Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 4593c54a-2cd7-43e0-8c6e-0fd86e4410fc","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.651Z"}
+{"level":"info","message":"PipelineWorker[4593c54a-2cd7-43e0-8c6e-0fd86e4410fc]: post=3960808707093280811 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.653Z"}
+{"level":"info","message":"PipelineWorker[4593c54a-2cd7-43e0-8c6e-0fd86e4410fc]: Carousel detected, found 7 media items","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.662Z"}
+{"level":"info","message":"PipelineWorker[4593c54a-2cd7-43e0-8c6e-0fd86e4410fc]: Generating deterministic report","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.662Z"}
+{"level":"info","message":"[REPORT] Starting deterministic report generation for https://www.instagram.com/p/Db3noipkbgr/","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.662Z"}
+{"level":"info","message":"[REPORT] Detected strategies: Not identified from available content","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.662Z"}
+{"level":"info","message":"[REPORT] Detected CTA: Not identified","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.663Z"}
+{"level":"info","message":"PipelineWorker[4593c54a-2cd7-43e0-8c6e-0fd86e4410fc]: Deterministic report generated in 6ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.668Z"}
+{"level":"info","message":"PipelineWorker[4593c54a-2cd7-43e0-8c6e-0fd86e4410fc]: analysis saved → 7ce0835f-df7b-40ee-8d22-9097c60c5344","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.675Z"}
+{"level":"info","message":"PipelineWorker[4593c54a-2cd7-43e0-8c6e-0fd86e4410fc]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.696Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=4593c54a-2cd7-43e0-8c6e-0fd86e4410fc","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:32.696Z"}
+{"level":"info","message":"TelegramProvider.sendDocument: sent report.html to chatId=8327736931","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.481Z"}
+{"level":"info","message":"NotificationService: Telegram dispatch completed in 5786ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.482Z"}
+{"level":"info","message":"PipelineWorker[4593c54a-2cd7-43e0-8c6e-0fd86e4410fc]: Telegram sent in 5791ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.487Z"}
+{"aiLatencyMs":6,"bytesDownloaded":1171234,"framesExtracted":7,"level":"info","message":"PipelineWorker[4593c54a-2cd7-43e0-8c6e-0fd86e4410fc]: ✅ pipeline complete in 5841ms","service":"social-intelligence-platform","telegramLatencyMs":5791,"timestamp":"2026-08-18T10:15:38.492Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 294dd541-1c24-4f9d-aebc-9e73e80dfc5f","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.492Z"}
+{"level":"info","message":"PipelineWorker[294dd541-1c24-4f9d-aebc-9e73e80dfc5f]: post=3960841228753399439 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.494Z"}
+{"level":"info","message":"PipelineWorker[294dd541-1c24-4f9d-aebc-9e73e80dfc5f]: Carousel detected, found 4 media items","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.499Z"}
+{"level":"info","message":"PipelineWorker[294dd541-1c24-4f9d-aebc-9e73e80dfc5f]: Generating deterministic report","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.500Z"}
+{"level":"info","message":"[REPORT] Starting deterministic report generation for https://www.instagram.com/p/Db3vByzkW6P/","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.500Z"}
+{"level":"info","message":"[REPORT] Detected strategies: Not identified from available content","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.500Z"}
+{"level":"info","message":"[REPORT] Detected CTA: Not identified","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.500Z"}
+{"level":"info","message":"PipelineWorker[294dd541-1c24-4f9d-aebc-9e73e80dfc5f]: Deterministic report generated in 2ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.502Z"}
+{"level":"info","message":"PipelineWorker[294dd541-1c24-4f9d-aebc-9e73e80dfc5f]: analysis saved → b1d9bd1c-0eba-40cc-b5bc-96a49e38e3eb","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.509Z"}
+{"level":"info","message":"PipelineWorker[294dd541-1c24-4f9d-aebc-9e73e80dfc5f]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.520Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=294dd541-1c24-4f9d-aebc-9e73e80dfc5f","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:38.521Z"}
+{"level":"info","message":"TelegramProvider.sendDocument: sent report.html to chatId=8327736931","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:41.270Z"}
+{"level":"info","message":"NotificationService: Telegram dispatch completed in 2749ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:41.270Z"}
+{"level":"info","message":"PipelineWorker[294dd541-1c24-4f9d-aebc-9e73e80dfc5f]: Telegram sent in 2754ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:41.275Z"}
+{"aiLatencyMs":2,"bytesDownloaded":487750,"framesExtracted":4,"level":"info","message":"PipelineWorker[294dd541-1c24-4f9d-aebc-9e73e80dfc5f]: ✅ pipeline complete in 2788ms","service":"social-intelligence-platform","telegramLatencyMs":2754,"timestamp":"2026-08-18T10:15:41.280Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 60ee0017-16c8-45b1-b633-f9cf02f47111","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:41.280Z"}
+{"level":"info","message":"PipelineWorker[60ee0017-16c8-45b1-b633-f9cf02f47111]: post=3960929904026226078 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:41.282Z"}
+{"level":"info","message":"PipelineWorker[60ee0017-16c8-45b1-b633-f9cf02f47111]: loaded 4770955 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\60ee0017-16c8-45b1-b633-f9cf02f47111\\1786432329622.mp4","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:41.288Z"}
+{"level":"info","message":"FrameSamplerService: video=1786432329622.mp4 duration=41.7s interval=2s → 12 frame(s)","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:41.350Z"}
+{"level":"info","message":"FrameSamplerService: loaded and resized 12 frame(s) from C:\\Users\\Anurodh\\AppData\\Local\\Temp\\frames_1787048141350","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:43.370Z"}
+{"level":"info","message":"PipelineWorker[60ee0017-16c8-45b1-b633-f9cf02f47111]: extracted 12 frames in 2085ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:43.374Z"}
+{"level":"info","message":"PipelineWorker[60ee0017-16c8-45b1-b633-f9cf02f47111]: Generating deterministic report","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:43.445Z"}
+{"level":"info","message":"[REPORT] Starting deterministic report generation for https://www.instagram.com/p/Db4DMMFtI2e/","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:43.445Z"}
+{"level":"info","message":"[REPORT] Detected strategies: Sponsored/Creator Content","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:43.446Z"}
+{"level":"info","message":"[REPORT] Detected CTA: Not identified","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:43.446Z"}
+{"level":"info","message":"PipelineWorker[60ee0017-16c8-45b1-b633-f9cf02f47111]: Deterministic report generated in 1ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:43.446Z"}
+{"level":"info","message":"PipelineWorker[60ee0017-16c8-45b1-b633-f9cf02f47111]: analysis saved → 818e5c86-d6bb-4b8c-9ced-0adac1676343","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:43.453Z"}
+{"level":"info","message":"PipelineWorker[60ee0017-16c8-45b1-b633-f9cf02f47111]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:43.461Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=60ee0017-16c8-45b1-b633-f9cf02f47111","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:43.461Z"}
+{"level":"info","message":"TelegramProvider.sendDocument: sent report.html to chatId=8327736931","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.252Z"}
+{"level":"info","message":"NotificationService: Telegram dispatch completed in 791ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.252Z"}
+{"level":"info","message":"PipelineWorker[60ee0017-16c8-45b1-b633-f9cf02f47111]: Telegram sent in 807ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.268Z"}
+{"aiLatencyMs":1,"bytesDownloaded":4770955,"framesExtracted":12,"level":"info","message":"PipelineWorker[60ee0017-16c8-45b1-b633-f9cf02f47111]: ✅ pipeline complete in 2994ms","service":"social-intelligence-platform","telegramLatencyMs":807,"timestamp":"2026-08-18T10:15:44.274Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post fe831b13-1594-4f0f-a721-804bcd1b2021","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.274Z"}
+{"level":"info","message":"PipelineWorker[fe831b13-1594-4f0f-a721-804bcd1b2021]: post=3960952272766954336 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.276Z"}
+{"level":"info","message":"PipelineWorker[fe831b13-1594-4f0f-a721-804bcd1b2021]: Carousel detected, found 5 media items","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.285Z"}
+{"level":"info","message":"PipelineWorker[fe831b13-1594-4f0f-a721-804bcd1b2021]: Generating deterministic report","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.285Z"}
+{"level":"info","message":"[REPORT] Starting deterministic report generation for https://www.instagram.com/p/Db4IRsmjOtg/","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.285Z"}
+{"level":"info","message":"[REPORT] Detected strategies: Promotional","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.285Z"}
+{"level":"info","message":"[REPORT] Detected CTA: Not identified","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.286Z"}
+{"level":"info","message":"PipelineWorker[fe831b13-1594-4f0f-a721-804bcd1b2021]: Deterministic report generated in 7ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.293Z"}
+{"level":"info","message":"PipelineWorker[fe831b13-1594-4f0f-a721-804bcd1b2021]: analysis saved → 938a1007-c3d7-4fc2-8ff2-4e819dbb03e4","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.305Z"}
+{"level":"info","message":"PipelineWorker[fe831b13-1594-4f0f-a721-804bcd1b2021]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.322Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=fe831b13-1594-4f0f-a721-804bcd1b2021","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:44.322Z"}
+{"level":"info","message":"TelegramProvider.sendDocument: sent report.html to chatId=8327736931","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:50.684Z"}
+{"level":"info","message":"NotificationService: Telegram dispatch completed in 6362ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:50.685Z"}
+{"level":"info","message":"PipelineWorker[fe831b13-1594-4f0f-a721-804bcd1b2021]: Telegram sent in 6370ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:50.692Z"}
+{"aiLatencyMs":7,"bytesDownloaded":1333719,"framesExtracted":5,"level":"info","message":"PipelineWorker[fe831b13-1594-4f0f-a721-804bcd1b2021]: ✅ pipeline complete in 6423ms","service":"social-intelligence-platform","telegramLatencyMs":6370,"timestamp":"2026-08-18T10:15:50.698Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 48c81a07-0004-4ec5-b827-3fd935eb38c3","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:50.698Z"}
+{"level":"info","message":"PipelineWorker[48c81a07-0004-4ec5-b827-3fd935eb38c3]: post=3960998645673757311 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:50.700Z"}
+{"level":"info","message":"PipelineWorker[48c81a07-0004-4ec5-b827-3fd935eb38c3]: loaded 1897998 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\48c81a07-0004-4ec5-b827-3fd935eb38c3\\1786432329252.mp4","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:50.705Z"}
+{"level":"info","message":"FrameSamplerService: video=1786432329252.mp4 duration=10.8s interval=1s → 10 frame(s)","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:50.766Z"}
+{"level":"info","message":"FrameSamplerService: loaded and resized 10 frame(s) from C:\\Users\\Anurodh\\AppData\\Local\\Temp\\frames_1787048150766","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:51.564Z"}
+{"level":"info","message":"PipelineWorker[48c81a07-0004-4ec5-b827-3fd935eb38c3]: extracted 10 frames in 863ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:51.568Z"}
+{"level":"info","message":"PipelineWorker[48c81a07-0004-4ec5-b827-3fd935eb38c3]: Generating deterministic report","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:51.634Z"}
+{"level":"info","message":"[REPORT] Starting deterministic report generation for https://www.instagram.com/p/Db4S0gvMAp_/","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:51.634Z"}
+{"level":"info","message":"[REPORT] Detected strategies: Not identified from available content","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:51.634Z"}
+{"level":"info","message":"[REPORT] Detected CTA: Not identified","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:51.635Z"}
+{"level":"info","message":"PipelineWorker[48c81a07-0004-4ec5-b827-3fd935eb38c3]: Deterministic report generated in 1ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:51.635Z"}
+{"level":"info","message":"PipelineWorker[48c81a07-0004-4ec5-b827-3fd935eb38c3]: analysis saved → 07666442-c732-488c-930c-d3f3594e329f","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:51.642Z"}
+{"level":"info","message":"PipelineWorker[48c81a07-0004-4ec5-b827-3fd935eb38c3]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:51.651Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=48c81a07-0004-4ec5-b827-3fd935eb38c3","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:51.652Z"}
+{"level":"info","message":"TelegramProvider.sendDocument: sent report.html to chatId=8327736931","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.554Z"}
+{"level":"info","message":"NotificationService: Telegram dispatch completed in 903ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.554Z"}
+{"level":"info","message":"PipelineWorker[48c81a07-0004-4ec5-b827-3fd935eb38c3]: Telegram sent in 909ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.560Z"}
+{"aiLatencyMs":1,"bytesDownloaded":1897998,"framesExtracted":10,"level":"info","message":"PipelineWorker[48c81a07-0004-4ec5-b827-3fd935eb38c3]: ✅ pipeline complete in 1867ms","service":"social-intelligence-platform","telegramLatencyMs":909,"timestamp":"2026-08-18T10:15:52.565Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 6e12560d-9cd2-4b49-b6cc-68ffa8b43c83","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.566Z"}
+{"level":"info","message":"PipelineWorker[6e12560d-9cd2-4b49-b6cc-68ffa8b43c83]: post=3961167862467168935 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.568Z"}
+{"level":"info","message":"PipelineWorker[6e12560d-9cd2-4b49-b6cc-68ffa8b43c83]: Carousel detected, found 2 media items","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.574Z"}
+{"level":"info","message":"PipelineWorker[6e12560d-9cd2-4b49-b6cc-68ffa8b43c83]: Generating deterministic report","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.574Z"}
+{"level":"info","message":"[REPORT] Starting deterministic report generation for https://www.instagram.com/p/Db45S8KDIqn/","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.574Z"}
+{"level":"info","message":"[REPORT] Detected strategies: Not identified from available content","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.575Z"}
+{"level":"info","message":"[REPORT] Detected CTA: Not identified","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.575Z"}
+{"level":"info","message":"PipelineWorker[6e12560d-9cd2-4b49-b6cc-68ffa8b43c83]: Deterministic report generated in 5ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.579Z"}
+{"level":"info","message":"PipelineWorker[6e12560d-9cd2-4b49-b6cc-68ffa8b43c83]: analysis saved → 33b0ddfe-03a8-4b24-abcf-53151c6342d6","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.585Z"}
+{"level":"info","message":"PipelineWorker[6e12560d-9cd2-4b49-b6cc-68ffa8b43c83]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.607Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=6e12560d-9cd2-4b49-b6cc-68ffa8b43c83","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:52.607Z"}
+{"level":"info","message":"TelegramProvider.sendDocument: sent report.html to chatId=8327736931","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:58.965Z"}
+{"level":"info","message":"NotificationService: Telegram dispatch completed in 6359ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:58.966Z"}
+{"level":"info","message":"PipelineWorker[6e12560d-9cd2-4b49-b6cc-68ffa8b43c83]: Telegram sent in 6365ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:58.972Z"}
+{"aiLatencyMs":5,"bytesDownloaded":1321088,"framesExtracted":2,"level":"info","message":"PipelineWorker[6e12560d-9cd2-4b49-b6cc-68ffa8b43c83]: ✅ pipeline complete in 6432ms","service":"social-intelligence-platform","telegramLatencyMs":6365,"timestamp":"2026-08-18T10:15:58.997Z"}
+{"level":"info","message":"Scheduler[tick]: processed=1 skipped=0","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:59.011Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" completed in 58299ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:15:59.012Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-18T10:20:00.661Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-18T10:20:00.662Z"}

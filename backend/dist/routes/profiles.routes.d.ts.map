@@ -1,0 +1,1 @@
+{"version":3,"file":"profiles.routes.d.ts","sourceRoot":"","sources":["../../src/routes/profiles.routes.ts"],"names":[],"mappings":"AAMA,QAAA,MAAM,MAAM,4CAAW,CAAC;AAGxB,eAAO,MAAM,eAAe;oBACF,CAAC,CAAC,EAAE,EAAE,MAAM,KAAK,OAAO,CAAC,OAAO,CAAC,CAAC,GAAG,IAAI;iBACzC,CAAC,CAAC,EAAE,EAAE,MAAM,KAAK,OAAO,CAAC,OAAO,CAAC,CAAC,GAAG,IAAI;CAClE,CAAC;AAuGF,eAAe,MAAM,CAAC"}

@@ -1,0 +1,30 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\logs\\.a1912484ac695a624b03fb45719a6bdfb6c80f3b-audit.json",
+    "files": [
+        {
+            "date": 1786347463440,
+            "name": "C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\logs\\combined-2026-08-10.log",
+            "hash": "c3dfef1d8072e768ad21688dd79bc13b43acfd43b3603ff35b5ac82a329b6b58"
+        },
+        {
+            "date": 1786431438411,
+            "name": "C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\logs\\combined-2026-08-11.log",
+            "hash": "8d627ed884fa6faa13c573237f6efbbb6552204001a4dd89755d9fd5491ddab4"
+        },
+        {
+            "date": 1786964598498,
+            "name": "C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\logs\\combined-2026-08-17.log",
+            "hash": "a97bb187c4fdb4ba1c15922caaf4682f442441660fd339baab81ba91855c752b"
+        },
+        {
+            "date": 1787047931373,
+            "name": "C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\logs\\combined-2026-08-18.log",
+            "hash": "f737b22a12f8bf0116361566898698ae32e6cdf3fcebccd6ea5c408452cc93d8"
+        }
+    ],
+    "hashType": "sha256"
+}

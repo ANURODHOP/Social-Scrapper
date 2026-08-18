@@ -1,0 +1,125 @@
+import { Prisma } from '@prisma/client';
+export declare class ProfileRepository {
+    findAll(): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        username: string;
+        displayName: string | null;
+        bio: string | null;
+        followerCount: number | null;
+        followingCount: number | null;
+        profilePicUrl: string | null;
+        isActive: boolean;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+    }[]>;
+    findAllMonitored(): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        username: string;
+        displayName: string | null;
+        bio: string | null;
+        followerCount: number | null;
+        followingCount: number | null;
+        profilePicUrl: string | null;
+        isActive: boolean;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+    }[]>;
+    findById(id: string): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        username: string;
+        displayName: string | null;
+        bio: string | null;
+        followerCount: number | null;
+        followingCount: number | null;
+        profilePicUrl: string | null;
+        isActive: boolean;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+    } | null>;
+    findByPlatformAndId(platform: string, platformId: string): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        username: string;
+        displayName: string | null;
+        bio: string | null;
+        followerCount: number | null;
+        followingCount: number | null;
+        profilePicUrl: string | null;
+        isActive: boolean;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+    } | null>;
+    findByUsername(platform: string, username: string): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        username: string;
+        displayName: string | null;
+        bio: string | null;
+        followerCount: number | null;
+        followingCount: number | null;
+        profilePicUrl: string | null;
+        isActive: boolean;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+    } | null>;
+    create(data: Prisma.ProfileCreateInput): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        username: string;
+        displayName: string | null;
+        bio: string | null;
+        followerCount: number | null;
+        followingCount: number | null;
+        profilePicUrl: string | null;
+        isActive: boolean;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+    }>;
+    update(id: string, data: Prisma.ProfileUpdateInput): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        username: string;
+        displayName: string | null;
+        bio: string | null;
+        followerCount: number | null;
+        followingCount: number | null;
+        profilePicUrl: string | null;
+        isActive: boolean;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+    }>;
+    softDelete(id: string): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        username: string;
+        displayName: string | null;
+        bio: string | null;
+        followerCount: number | null;
+        followingCount: number | null;
+        profilePicUrl: string | null;
+        isActive: boolean;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+    }>;
+    count(): Promise<number>;
+}
+//# sourceMappingURL=profile.repository.d.ts.map

@@ -1,0 +1,260 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Social Media Profiles
+model Profile {
+  id            String   @id @default(uuid())
+  platform      String   // e.g., instagram, tiktok, youtube
+  platformId    String   // unique ID from the platform
+  username      String
+  displayName   String?
+  bio           String?
+  followerCount Int?
+  followingCount Int?
+  profilePicUrl String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?  // soft delete
+
+  posts         Post[]   @relation("ProfilePosts")
+  reports       Report[] @relation("ProfileReports")
+  notifications NotificationHistory[] @relation("ProfileNotifications")
+  // Unique constraint on platform and platformId
+  @@unique([platform, platformId])
+}
+
+// Posts (e.g., Instagram posts, TikTok videos)
+model Post {
+  id            String   @id @default(uuid())
+  platform      String   // e.g., instagram, tiktok
+  platformId    String   // unique ID from the platform
+  profileId     String   // foreign key to Profile
+  caption       String?
+  mediaType     String   // IMAGE, VIDEO, CAROUSEL_ALBUM, etc.
+  permalink     String?  // URL to the post on the platform
+  thumbnailUrl  String?
+  publishedAt   DateTime
+  collectedAt   DateTime @default(now())
+  isProcessed   Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?  // soft delete
+
+  profile       Profile   @relation("ProfilePosts", fields: [profileId], references: [id])
+  media         Media[]   @relation("PostMedia")
+  analysis      Analysis? @relation("PostAnalysis")
+  reports       Report[]  @relation("PostReports")
+  notifications NotificationHistory[] @relation("PostNotifications")
+  @@unique([platform, platformId])
+}
+
+// Media (individual media items within a post, e.g., each image/video in a carousel)
+model Media {
+  id            String   @id @default(uuid())
+  postId        String   // foreign key to Post
+  mediaUrl      String   // URL to the media file (original)
+  mediaType     String   // IMAGE or VIDEO
+  width         Int?
+  height        Int?
+  duration      Int?     // in seconds for video
+  fileSize      Int?     // in bytes
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?  // soft delete
+
+  post          Post     @relation("PostMedia", fields: [postId], references: [id])
+  mediaFiles    MediaFiles[] @relation("MediaMediaFiles")
+  @@index([postId])
+}
+
+// MediaFiles (stored files after processing, e.g., thumbnails, optimized versions)
+model MediaFiles {
+  id            String   @id @default(uuid())
+  mediaId       String   // foreign key to Media
+  fileType      String   // e.g., original, thumbnail, optimized, frame, audio
+  filePath      String   // path to the stored file
+  fileSize      Int?     // in bytes
+  width         Int?
+  height        Int?
+  duration      Int?     // for video/audio
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?  // soft delete
+
+  media         Media    @relation("MediaMediaFiles", fields: [mediaId], references: [id])
+  @@index([mediaId])
+}
+
+// Analysis (AI analysis results for a post)
+model Analysis {
+  id            String   @id @default(uuid())
+  postId        String   // foreign key to Post (unique for one-to-one)
+  // Structured analysis results stored as JSON
+  productIdentification   String?   // stored as JSON string for SQLite compatibility
+  brand                   String?
+  category                String?
+  campaign                String?
+  targetAudience          String?
+  marketingStrategy       String?
+  primaryMessage          String?
+  hook                    String?
+  callToAction            String?
+  visualStyle             String?
+  colorPalette            String?   // JSON array stored as string
+  emotion                 String?
+  sceneDescriptions       String?   // JSON array stored as string
+  objects                 String?   // JSON array stored as string
+  people                  String?   // JSON array stored as string
+  speechSummary           String?
+  captionSummary          String?
+  hashtags                String?   // JSON array stored as string
+  keywords                String?   // JSON array stored as string
+  competitorInsights      String?   // JSON stored as string
+  postingStrategy         String?
+  overallConfidence       Float?    // 0.0 to 1.0
+  rawMetadata             String?   // JSON stored as string
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+  deletedAt               DateTime?  // soft delete
+
+  post        Post     @relation("PostAnalysis", fields: [postId], references: [id])
+  @@unique([postId])
+  @@index([postId])
+}
+
+// Reports (generated reports for posts or profiles)
+model Report {
+  id            String   @id @default(uuid())
+  postId        String?  // can be null for profile-level reports
+  profileId     String?  // can be null for ad-hoc reports
+  type          String   // e.g., marketing, visual, speech, comprehensive
+  format        String   // e.g., markdown, html, pdf, json
+  title         String
+  content       String   // the report content (could be markdown, html, etc.)
+  filePath      String?  // if stored as a file
+  generatedAt   DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?  // soft delete
+
+  post      Post?     @relation("PostReports", fields: [postId], references: [id])
+  profile   Profile?  @relation("ProfileReports", fields: [profileId], references: [id])
+  @@index([postId])
+  @@index([profileId])
+}
+
+// ScheduledJobs (internal job records, replaces BullMQ jobs for dev)
+model ScheduledJob {
+  id            String    @id @default(uuid())
+  name          String    // job name, e.g., "scrape-profile", "process-media"
+  data          String?   // JSON-encoded job data
+  status        String    @default("pending")  // pending, running, completed, failed
+  attempts      Int       @default(0)
+  maxAttempts   Int       @default(3)
+  result        String?   // JSON-encoded result
+  failedReason  String?
+  scheduledAt   DateTime  @default(now())
+  processedAt   DateTime?
+  finishedAt    DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// JobHistory (history of job executions)
+model JobHistory {
+  id           String   @id @default(uuid())
+  jobName      String
+  status       String   // completed, failed
+  data         String?  // JSON
+  result       String?  // JSON
+  failedReason String?
+  duration     Int?     // milliseconds
+  startedAt    DateTime
+  finishedAt   DateTime @default(now())
+  createdAt    DateTime @default(now())
+}
+
+// NotificationHistory (history of sent notifications)
+model NotificationHistory {
+  id            String   @id @default(uuid())
+  profileId     String?  // optional, for profile-related notifications
+  postId        String?  // optional, for post-related notifications
+  provider      String   // e.g., telegram, discord, email
+  recipient     String   // e.g., user ID, phone number, email
+  subject       String?
+  content       String
+  status        String   // e.g., sent, failed, pending
+  sentAt        DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  profile Profile?  @relation("ProfileNotifications", fields: [profileId], references: [id])
+  post    Post?     @relation("PostNotifications", fields: [postId], references: [id])
+  @@index([profileId])
+  @@index([postId])
+}
+
+// SchedulerRuns (to track when scheduled jobs run)
+model SchedulerRun {
+  id        String   @id @default(uuid())
+  name      String   // name of the scheduled job, e.g., "daily-profile-scan"
+  status    String   // e.g., started, completed, failed
+  startedAt DateTime
+  finishedAt DateTime?
+  createdAt DateTime @default(now())
+}
+
+// PlatformSettings (global settings per platform)
+model PlatformSettings {
+  id            String   @id @default(uuid())
+  platform      String   // e.g., instagram, tiktok
+  key           String   // setting key
+  value         String   // setting value (can be JSON string)
+  description   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  @@unique([platform, key])
+}
+
+// Users (future authentication)
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  password      String   // hashed
+  name          String?
+  role          String   @default("USER") // e.g., ADMIN, USER
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// Providers (configuration for external providers, e.g., API keys - encrypted in practice)
+model Provider {
+  id            String   @id @default(uuid())
+  name          String   // e.g., instagram, openai, telegram
+  type          String   // e.g., social, ai, notification, storage
+  config        String?  // JSON-encoded configuration
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// Logs (application logs persisted to DB)
+model Log {
+  id          String   @id @default(uuid())
+  level       String   // e.g., info, warn, error
+  message     String
+  meta        String?  // JSON-encoded additional metadata
+  createdAt   DateTime @default(now())
+  @@index([createdAt])
+}

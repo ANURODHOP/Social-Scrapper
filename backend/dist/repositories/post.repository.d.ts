@@ -1,0 +1,101 @@
+import { Prisma } from '@prisma/client';
+export declare class PostRepository {
+    findById(id: string): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        caption: string | null;
+        mediaType: string;
+        permalink: string | null;
+        thumbnailUrl: string | null;
+        publishedAt: Date;
+        collectedAt: Date;
+        isProcessed: boolean;
+        profileId: string;
+    } | null>;
+    findByProfileId(profileId: string): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        caption: string | null;
+        mediaType: string;
+        permalink: string | null;
+        thumbnailUrl: string | null;
+        publishedAt: Date;
+        collectedAt: Date;
+        isProcessed: boolean;
+        profileId: string;
+    }[]>;
+    findByPlatformAndId(platform: string, platformId: string): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        caption: string | null;
+        mediaType: string;
+        permalink: string | null;
+        thumbnailUrl: string | null;
+        publishedAt: Date;
+        collectedAt: Date;
+        isProcessed: boolean;
+        profileId: string;
+    } | null>;
+    create(data: Prisma.PostUncheckedCreateInput): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        caption: string | null;
+        mediaType: string;
+        permalink: string | null;
+        thumbnailUrl: string | null;
+        publishedAt: Date;
+        collectedAt: Date;
+        isProcessed: boolean;
+        profileId: string;
+    }>;
+    update(id: string, data: Prisma.PostUpdateInput): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        caption: string | null;
+        mediaType: string;
+        permalink: string | null;
+        thumbnailUrl: string | null;
+        publishedAt: Date;
+        collectedAt: Date;
+        isProcessed: boolean;
+        profileId: string;
+    }>;
+    getUnprocessedPosts(profileId?: string): Promise<{
+        id: string;
+        platform: string;
+        platformId: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        caption: string | null;
+        mediaType: string;
+        permalink: string | null;
+        thumbnailUrl: string | null;
+        publishedAt: Date;
+        collectedAt: Date;
+        isProcessed: boolean;
+        profileId: string;
+    }[]>;
+    countForProfile(profileId: string): Promise<number>;
+}
+//# sourceMappingURL=post.repository.d.ts.map

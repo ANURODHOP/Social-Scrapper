@@ -1,0 +1,415 @@
+{"level":"info","message":"NVIDIAProvider: initialized [model=meta/llama-3.1-70b-instruct, visionModel=meta/llama-4-scout-17b-16e-instruct]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:05:58.791Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T11:05:58.792Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:05:58.793Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T11:05:58.793Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:05:58.810Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:05:58.878Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:05:58.879Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:05:58.880Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T11:05:58.881Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T11:10:00.676Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 12ms","service":"social-intelligence-platform","timestamp":"2026-08-17T11:10:00.690Z"}
+{"level":"info","message":"SIGINT — shutting down","service":"social-intelligence-platform","timestamp":"2026-08-17T11:11:44.291Z"}
+{"level":"info","message":"NVIDIAProvider: initialized [model=meta/llama-3.1-70b-instruct, visionModel=meta/llama-4-scout-17b-16e-instruct]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:11:50.363Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T11:11:50.364Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:11:50.365Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T11:11:50.366Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:11:50.449Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:11:50.468Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:11:50.469Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:11:50.470Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T11:11:50.471Z"}
+{"level":"info","message":"POST /scheduler/run: manual trigger via wired handler","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:11.004Z"}
+{"level":"info","message":"Scheduler[scan]: 1 profile(s), concurrency=2","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:11.008Z"}
+{"level":"info","message":"ScraperService: scraping profile fabriziorom (instagram)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:11.020Z"}
+{"level":"info","message":"InstagramProvider.discoverPosts: profile fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:11.021Z"}
+{"level":"info","message":"InstagramHTTPClient.getRecentMedia: profileId=fabriziorom limit=50","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:11.021Z"}
+{"level":"warn","message":"InstagramHTTPClient.getRecentMedia: no timeline data intercepted for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:26.939Z"}
+{"level":"info","message":"ScraperService: discovered 0 posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:26.939Z"}
+{"level":"info","message":"ScraperService: created 0 new posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:26.939Z"}
+{"level":"info","message":"Scheduler[6fe10d94-bd5f-4597-b3c5-c21378f21d2e]: 12 unprocessed post(s)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:26.942Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 140f889e-f15b-4f28-bc21-9e0a33e32958","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:26.943Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: post=3573008015040911575 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:26.945Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: loaded 10107241 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\140f889e-f15b-4f28-bc21-9e0a33e32958\\1786432328769.mp4","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:26.962Z"}
+{"level":"info","message":"FrameSamplerService: video=1786432328769.mp4 duration=20.5s interval=2s → 10 frame(s)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:27.797Z"}
+{"level":"info","message":"FrameSamplerService: loaded and resized 10 frame(s) from C:\\Users\\Anurodh\\AppData\\Local\\Temp\\frames_1786965267797","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:30.585Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: extracted 10 frames in 3626ms","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:30.588Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: sending 10 frame(s) to NVIDIA NIM","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:30.663Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames: 10 frame(s), type=VIDEO","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:30.664Z"}
+{"body":"\"404 page not found\\n\"","level":"error","message":"NVIDIAProvider: API error HTTP 404","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:31.321Z"}
+{"error":"NVIDIAProvider: HTTP 404 — \"404 page not found\\n\"","level":"error","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: ❌ pipeline failed after 4379ms","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:31.322Z"}
+{"error":{},"level":"error","message":"Scheduler: profile 6fe10d94-bd5f-4597-b3c5-c21378f21d2e failed","service":"social-intelligence-platform","timestamp":"2026-08-17T11:14:31.329Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:00.944Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:00.945Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:00.946Z"}
+{"level":"info","message":"Scheduler[scan]: 1 profile(s), concurrency=2","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:00.947Z"}
+{"level":"info","message":"ScraperService: scraping profile fabriziorom (instagram)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:00.973Z"}
+{"level":"info","message":"InstagramProvider.discoverPosts: profile fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:00.973Z"}
+{"level":"info","message":"InstagramHTTPClient.getRecentMedia: profileId=fabriziorom limit=50","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:00.974Z"}
+{"level":"warn","message":"InstagramHTTPClient.getRecentMedia: no timeline data intercepted for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:13.063Z"}
+{"level":"info","message":"ScraperService: discovered 0 posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:13.064Z"}
+{"level":"info","message":"ScraperService: created 0 new posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:13.064Z"}
+{"level":"info","message":"Scheduler[6fe10d94-bd5f-4597-b3c5-c21378f21d2e]: 12 unprocessed post(s)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:13.082Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 140f889e-f15b-4f28-bc21-9e0a33e32958","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:13.083Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: post=3573008015040911575 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:13.089Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: loaded 10107241 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\140f889e-f15b-4f28-bc21-9e0a33e32958\\1786432328769.mp4","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:13.106Z"}
+{"level":"info","message":"FrameSamplerService: video=1786432328769.mp4 duration=20.5s interval=2s → 10 frame(s)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:13.240Z"}
+{"level":"info","message":"FrameSamplerService: loaded and resized 10 frame(s) from C:\\Users\\Anurodh\\AppData\\Local\\Temp\\frames_1786965313240","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:15.675Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: extracted 10 frames in 2574ms","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:15.681Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: sending 10 frame(s) to NVIDIA NIM","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:15.799Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames: 10 frame(s), type=VIDEO","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:15.800Z"}
+{"body":"\"404 page not found\\n\"","level":"error","message":"NVIDIAProvider: API error HTTP 404","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:16.386Z"}
+{"error":"NVIDIAProvider: HTTP 404 — \"404 page not found\\n\"","level":"error","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: ❌ pipeline failed after 3304ms","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:16.387Z"}
+{"error":{},"level":"error","message":"Scheduler: profile 6fe10d94-bd5f-4597-b3c5-c21378f21d2e failed","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:16.396Z"}
+{"level":"info","message":"Scheduler[tick]: processed=1 skipped=0","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:16.397Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" completed in 15453ms","service":"social-intelligence-platform","timestamp":"2026-08-17T11:15:16.397Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T11:20:00.283Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-17T11:20:00.284Z"}
+{"level":"info","message":"POST /scheduler/run: manual trigger via wired handler","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:27.945Z"}
+{"level":"info","message":"Scheduler[scan]: 1 profile(s), concurrency=2","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:27.947Z"}
+{"level":"info","message":"ScraperService: scraping profile fabriziorom (instagram)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:27.983Z"}
+{"level":"info","message":"InstagramProvider.discoverPosts: profile fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:27.983Z"}
+{"level":"info","message":"InstagramHTTPClient.getRecentMedia: profileId=fabriziorom limit=50","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:27.983Z"}
+{"level":"warn","message":"InstagramHTTPClient.getRecentMedia: no timeline data intercepted for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:39.752Z"}
+{"level":"info","message":"ScraperService: discovered 0 posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:39.752Z"}
+{"level":"info","message":"ScraperService: created 0 new posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:39.753Z"}
+{"level":"info","message":"Scheduler[6fe10d94-bd5f-4597-b3c5-c21378f21d2e]: 12 unprocessed post(s)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:39.755Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 140f889e-f15b-4f28-bc21-9e0a33e32958","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:39.755Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: post=3573008015040911575 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:39.758Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: loaded 10107241 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\140f889e-f15b-4f28-bc21-9e0a33e32958\\1786432328769.mp4","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:39.771Z"}
+{"level":"info","message":"FrameSamplerService: video=1786432328769.mp4 duration=20.5s interval=2s → 10 frame(s)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:39.990Z"}
+{"level":"info","message":"FrameSamplerService: loaded and resized 10 frame(s) from C:\\Users\\Anurodh\\AppData\\Local\\Temp\\frames_1786965819991","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:42.430Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: extracted 10 frames in 2663ms","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:42.435Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: sending 10 frame(s) to NVIDIA NIM","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:42.563Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames: 10 frame(s), type=VIDEO","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:42.564Z"}
+{"body":"\"404 page not found\\n\"","level":"error","message":"NVIDIAProvider: API error HTTP 404","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:43.252Z"}
+{"error":"NVIDIAProvider: HTTP 404 — \"404 page not found\\n\"","level":"error","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: ❌ pipeline failed after 3497ms","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:43.253Z"}
+{"error":{},"level":"error","message":"Scheduler: profile 6fe10d94-bd5f-4597-b3c5-c21378f21d2e failed","service":"social-intelligence-platform","timestamp":"2026-08-17T11:23:43.280Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T11:25:00.397Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-17T11:25:00.398Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T11:30:00.637Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-17T11:30:00.638Z"}
+{"level":"info","message":"NVIDIAProvider: initialized [endpoint=https://integrate.api.nvidia.com/v1, textModel=meta/llama-3.1-70b-instruct, visionModels=nvidia/nemotron-nano-12b-v2-vl -> mistralai/mistral-small-4-119b-2603 -> qwen/qwen3.5-122b-a10b -> google/gemma-4-31b-it]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:34:06.880Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T11:34:06.881Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:34:06.881Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T11:34:06.881Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:34:06.955Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:34:06.965Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:34:06.966Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:34:06.967Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T11:34:06.967Z"}
+{"level":"info","message":"SIGINT — shutting down","service":"social-intelligence-platform","timestamp":"2026-08-17T11:34:55.245Z"}
+{"level":"info","message":"NVIDIAProvider: initialized [endpoint=https://integrate.api.nvidia.com/v1, textModel=meta/llama-3.1-70b-instruct, visionModels=nvidia/nemotron-nano-12b-v2-vl -> mistralai/mistral-small-4-119b-2603 -> qwen/qwen3.5-122b-a10b -> google/gemma-4-31b-it]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:35:05.199Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T11:35:05.200Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T11:35:05.200Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T11:35:05.201Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:35:05.309Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:35:05.318Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:35:05.319Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T11:35:05.320Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T11:35:05.320Z"}
+{"level":"info","message":"NVIDIAProvider: initialized [endpoint=https://integrate.api.nvidia.com/v1, textModel=meta/llama-3.1-70b-instruct, visionModels=nvidia/nemotron-nano-12b-v2-vl -> mistralai/mistral-small-4-119b-2603 -> qwen/qwen3.5-122b-a10b -> google/gemma-4-31b-it]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:36:10.784Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T14:36:10.785Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T14:36:10.786Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T14:36:10.786Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:36:10.866Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:36:10.909Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:36:10.911Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:36:10.912Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T14:36:10.912Z"}
+{"level":"info","message":"POST /scheduler/run: manual trigger via wired handler","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:20.124Z"}
+{"level":"info","message":"Scheduler[scan]: 1 profile(s), concurrency=2","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:20.184Z"}
+{"level":"info","message":"ScraperService: scraping profile fabriziorom (instagram)","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:20.199Z"}
+{"level":"info","message":"InstagramProvider.discoverPosts: profile fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:20.199Z"}
+{"level":"info","message":"InstagramHTTPClient.getRecentMedia: profileId=fabriziorom limit=50","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:20.200Z"}
+{"level":"warn","message":"InstagramHTTPClient.getRecentMedia: no timeline data intercepted for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:37.714Z"}
+{"level":"info","message":"ScraperService: discovered 0 posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:37.715Z"}
+{"level":"info","message":"ScraperService: created 0 new posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:37.715Z"}
+{"level":"info","message":"Scheduler[6fe10d94-bd5f-4597-b3c5-c21378f21d2e]: 12 unprocessed post(s)","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:37.719Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 140f889e-f15b-4f28-bc21-9e0a33e32958","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:37.721Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: post=3573008015040911575 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:37.725Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: loaded 10107241 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\140f889e-f15b-4f28-bc21-9e0a33e32958\\1786432328769.mp4","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:37.747Z"}
+{"level":"info","message":"FrameSamplerService: video=1786432328769.mp4 duration=20.5s interval=2s → 10 frame(s)","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:38.863Z"}
+{"level":"info","message":"FrameSamplerService: loaded and resized 10 frame(s) from C:\\Users\\Anurodh\\AppData\\Local\\Temp\\frames_1786977458863","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:42.153Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: extracted 10 frames in 4412ms","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:42.159Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: sending 10 frame(s) to NVIDIA NIM","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:42.247Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames: 10 frame(s), type=VIDEO","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:42.248Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames: using 8 frame(s) from 10","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:42.249Z"}
+{"level":"info","message":"NVIDIAProvider: vision attempt 1/4 using model=nvidia/nemotron-nano-12b-v2-vl","service":"social-intelligence-platform","timestamp":"2026-08-17T14:37:42.251Z"}
+{"body":{"error":{"code":500,"message":"EngineCore encountered an issue. See stack trace (above) for the root cause.","param":null,"type":"Internal Server Error"}},"level":"error","message":"NVIDIAProvider: API error model=nvidia/nemotron-nano-12b-v2-vl HTTP=500","service":"social-intelligence-platform","timestamp":"2026-08-17T14:39:20.490Z"}
+{"level":"error","message":"NVIDIAProvider: vision model failed model=nvidia/nemotron-nano-12b-v2-vl HTTP=500 message=NVIDIA API request failed for nvidia/nemotron-nano-12b-v2-vl","service":"social-intelligence-platform","timestamp":"2026-08-17T14:39:20.491Z"}
+{"level":"warn","message":"NVIDIAProvider: falling back from nvidia/nemotron-nano-12b-v2-vl → mistralai/mistral-small-4-119b-2603","service":"social-intelligence-platform","timestamp":"2026-08-17T14:39:20.491Z"}
+{"level":"info","message":"NVIDIAProvider: vision attempt 2/4 using model=mistralai/mistral-small-4-119b-2603","service":"social-intelligence-platform","timestamp":"2026-08-17T14:39:20.491Z"}
+{"body":{"detail":"The model 'mistralai/mistral-small-4-119b-2603' has reached its end of life on 2026-07-27T00:00:00Z and is no longer available.","status":410,"title":"Gone","type":"about:blank"},"level":"error","message":"NVIDIAProvider: API error model=mistralai/mistral-small-4-119b-2603 HTTP=410","service":"social-intelligence-platform","timestamp":"2026-08-17T14:39:20.625Z"}
+{"level":"error","message":"NVIDIAProvider: vision model failed model=mistralai/mistral-small-4-119b-2603 HTTP=410 message=NVIDIA API request failed for mistralai/mistral-small-4-119b-2603","service":"social-intelligence-platform","timestamp":"2026-08-17T14:39:20.626Z"}
+{"level":"warn","message":"NVIDIAProvider: falling back from mistralai/mistral-small-4-119b-2603 → qwen/qwen3.5-122b-a10b","service":"social-intelligence-platform","timestamp":"2026-08-17T14:39:20.626Z"}
+{"level":"info","message":"NVIDIAProvider: vision attempt 3/4 using model=qwen/qwen3.5-122b-a10b","service":"social-intelligence-platform","timestamp":"2026-08-17T14:39:20.627Z"}
+{"body":{"detail":"The model 'qwen/qwen3.5-122b-a10b' has reached its end of life on 2026-07-20T00:00:00Z and is no longer available.","status":410,"title":"Gone","type":"about:blank"},"level":"error","message":"NVIDIAProvider: API error model=qwen/qwen3.5-122b-a10b HTTP=410","service":"social-intelligence-platform","timestamp":"2026-08-17T14:39:20.720Z"}
+{"level":"error","message":"NVIDIAProvider: vision model failed model=qwen/qwen3.5-122b-a10b HTTP=410 message=NVIDIA API request failed for qwen/qwen3.5-122b-a10b","service":"social-intelligence-platform","timestamp":"2026-08-17T14:39:20.721Z"}
+{"level":"warn","message":"NVIDIAProvider: falling back from qwen/qwen3.5-122b-a10b → google/gemma-4-31b-it","service":"social-intelligence-platform","timestamp":"2026-08-17T14:39:20.722Z"}
+{"level":"info","message":"NVIDIAProvider: vision attempt 4/4 using model=google/gemma-4-31b-it","service":"social-intelligence-platform","timestamp":"2026-08-17T14:39:20.722Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T14:40:00.517Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 16ms","service":"social-intelligence-platform","timestamp":"2026-08-17T14:40:00.533Z"}
+{"body":{"detail":"Inference connection error while making inference request","status":500,"title":"Internal Server Error","type":"urn:inference-connection:problem-details:internal-server-error"},"level":"error","message":"NVIDIAProvider: API error model=google/gemma-4-31b-it HTTP=500","service":"social-intelligence-platform","timestamp":"2026-08-17T14:40:30.483Z"}
+{"level":"error","message":"NVIDIAProvider: vision model failed model=google/gemma-4-31b-it HTTP=500 message=NVIDIA API request failed for google/gemma-4-31b-it","service":"social-intelligence-platform","timestamp":"2026-08-17T14:40:30.483Z"}
+{"error":"NVIDIAProvider: all vision models failed. nvidia/nemotron-nano-12b-v2-vl: HTTP 500 | mistralai/mistral-small-4-119b-2603: HTTP 410 | qwen/qwen3.5-122b-a10b: HTTP 410 | google/gemma-4-31b-it: HTTP 500","level":"error","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: ❌ pipeline failed after 172764ms","service":"social-intelligence-platform","timestamp":"2026-08-17T14:40:30.484Z"}
+{"error":{},"level":"error","message":"Scheduler: profile 6fe10d94-bd5f-4597-b3c5-c21378f21d2e failed","service":"social-intelligence-platform","timestamp":"2026-08-17T14:40:30.517Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T14:45:00.592Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 1ms","service":"social-intelligence-platform","timestamp":"2026-08-17T14:45:00.593Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T14:50:00.877Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-17T14:50:00.877Z"}
+{"level":"info","message":"NVIDIAProvider: initialized [endpoint=https://integrate.api.nvidia.com/v1, textModel=meta/llama-3.1-70b-instruct, visionModels=meta/llama-3.2-90b-vision-instruct -> meta/llama-3.2-11b-vision-instruct -> microsoft/phi-3-vision-128k-instruct -> nvidia/nemotron-nano-12b-v2-vl]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:06.400Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:06.402Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:06.403Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:06.403Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:06.424Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:06.445Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:06.446Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:06.447Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:06.448Z"}
+{"level":"info","message":"NVIDIAProvider: initialized [endpoint=https://integrate.api.nvidia.com/v1, textModel=meta/llama-3.1-70b-instruct, visionModels=meta/llama-3.2-90b-vision-instruct -> meta/llama-3.2-11b-vision-instruct -> microsoft/phi-3-vision-128k-instruct -> nvidia/nemotron-nano-12b-v2-vl]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:15.759Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:15.761Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:15.762Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:15.762Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:15.780Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:15.813Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:15.815Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:15.816Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T14:52:15.816Z"}
+{"level":"info","message":"NVIDIAProvider: initialized [endpoint=https://integrate.api.nvidia.com/v1, textModel=meta/llama-3.1-70b-instruct, visionModels=meta/llama-3.2-90b-vision-instruct -> meta/llama-3.2-11b-vision-instruct -> microsoft/phi-3-vision-128k-instruct -> nvidia/nemotron-nano-12b-v2-vl]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:53:14.742Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T14:53:14.743Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T14:53:14.744Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T14:53:14.745Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:53:14.761Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:53:14.781Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:53:14.783Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T14:53:14.784Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T14:53:14.784Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T14:55:00.596Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-17T14:55:00.597Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:00.714Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:00.715Z"}
+{"level":"info","message":"NVIDIAProvider initialized: text=meta/llama-3.1-70b-instruct, vision=PaliGemma -> nvidia/nemotron-nano-12b-v2-vl -> meta/llama-3.2-90b-vision-instruct -> meta/llama-3.2-11b-vision-instruct","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:31.829Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:31.830Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:31.830Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:31.830Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:31.839Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:31.848Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:31.849Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:31.849Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:31.849Z"}
+{"level":"info","message":"Manual scan: profile 6fe10d94-bd5f-4597-b3c5-c21378f21d2e (fabriziorom)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:55.187Z"}
+{"level":"info","message":"ScraperService: scraping profile fabriziorom (instagram)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:55.189Z"}
+{"level":"info","message":"InstagramProvider.discoverPosts: profile fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:55.189Z"}
+{"level":"info","message":"InstagramHTTPClient.getRecentMedia: profileId=fabriziorom limit=50","service":"social-intelligence-platform","timestamp":"2026-08-17T15:00:55.190Z"}
+{"level":"warn","message":"InstagramHTTPClient.getRecentMedia: no timeline data intercepted for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:09.209Z"}
+{"level":"info","message":"ScraperService: discovered 0 posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:09.210Z"}
+{"level":"info","message":"ScraperService: created 0 new posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:09.210Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 140f889e-f15b-4f28-bc21-9e0a33e32958","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:09.214Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: post=3573008015040911575 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:09.217Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: loaded 10107241 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\140f889e-f15b-4f28-bc21-9e0a33e32958\\1786432328769.mp4","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:09.227Z"}
+{"level":"info","message":"FrameSamplerService: video=1786432328769.mp4 duration=20.5s interval=2s → 10 frame(s)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:09.347Z"}
+{"level":"info","message":"FrameSamplerService: loaded and resized 10 frame(s) from C:\\Users\\Anurodh\\AppData\\Local\\Temp\\frames_1786978869347","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:11.048Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: extracted 10 frames in 1824ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:11.051Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: sending 10 frame(s) to NVIDIA NIM","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:11.120Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames: 10 input frame(s), using 5","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:11.121Z"}
+{"level":"info","message":"NVIDIAProvider: PaliGemma frame 1/5","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:11.168Z"}
+{"level":"warn","message":"NVIDIAProvider: PaliGemma failed on frame 1: HTTP 422","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:12.082Z"}
+{"level":"warn","message":"NVIDIAProvider: PaliGemma unavailable, using multimodal fallback chain","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:12.082Z"}
+{"level":"info","message":"NVIDIAProvider: fallback vision model=nvidia/nemotron-nano-12b-v2-vl","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:12.083Z"}
+{"level":"error","message":"NVIDIA API error: model=nvidia/nemotron-nano-12b-v2-vl, HTTP=500","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:22.601Z"}
+{"level":"info","message":"NVIDIAProvider: fallback vision model=nvidia/nemotron-nano-12b-v2-vl","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:23.616Z"}
+{"level":"error","message":"NVIDIA API error: model=nvidia/nemotron-nano-12b-v2-vl, HTTP=500","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:23.963Z"}
+{"level":"info","message":"NVIDIAProvider: fallback vision model=nvidia/nemotron-nano-12b-v2-vl","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:25.966Z"}
+{"level":"error","message":"NVIDIA API error: model=nvidia/nemotron-nano-12b-v2-vl, HTTP=500","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:30.642Z"}
+{"level":"info","message":"NVIDIAProvider: fallback vision model=meta/llama-3.2-90b-vision-instruct","service":"social-intelligence-platform","timestamp":"2026-08-17T15:01:30.642Z"}
+{"level":"error","message":"NVIDIA API error: model=meta/llama-3.2-90b-vision-instruct, HTTP=unknown","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:30.654Z"}
+{"level":"info","message":"NVIDIAProvider: fallback vision model=meta/llama-3.2-11b-vision-instruct","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:30.654Z"}
+{"level":"error","message":"NVIDIA API error: model=meta/llama-3.2-11b-vision-instruct, HTTP=400","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:31.521Z"}
+{"error":"NVIDIAProvider: all vision models failed. nvidia/nemotron-nano-12b-v2-vl: HTTP 500 | nvidia/nemotron-nano-12b-v2-vl: HTTP 500 | nvidia/nemotron-nano-12b-v2-vl: HTTP 500 | meta/llama-3.2-90b-vision-instruct: HTTP unknown | meta/llama-3.2-11b-vision-instruct: HTTP 400","level":"error","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: ❌ pipeline failed after 142307ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:31.522Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 81f42434-3f07-48c5-8256-e29cc0ca9335","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:31.522Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: post=3749842155436013288 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:31.525Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: loaded 126333 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\81f42434-3f07-48c5-8256-e29cc0ca9335\\1786432328802.jpg","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:31.534Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: resized image → 60124 bytes","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:31.561Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: sending 1 frame(s) to NVIDIA NIM","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:31.562Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames: 1 input frame(s), using 1","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:31.562Z"}
+{"level":"info","message":"NVIDIAProvider: PaliGemma frame 1/1","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:31.583Z"}
+{"level":"warn","message":"NVIDIAProvider: PaliGemma failed on frame 1: HTTP 422","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:31.967Z"}
+{"level":"warn","message":"NVIDIAProvider: PaliGemma unavailable, using multimodal fallback chain","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:31.968Z"}
+{"level":"info","message":"NVIDIAProvider: fallback vision model=nvidia/nemotron-nano-12b-v2-vl","service":"social-intelligence-platform","timestamp":"2026-08-17T15:03:31.968Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames completed in 34287ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:05.850Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: NVIDIA analysis completed in 34288ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:05.850Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: analysis saved → 66257270-df1f-4eda-a47c-417ff4ceaf39","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:05.864Z"}
+{"level":"info","message":"ReportEngine: generating report for analysis 66257270-df1f-4eda-a47c-417ff4ceaf39","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:05.865Z"}
+{"level":"info","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:05.876Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=81f42434-3f07-48c5-8256-e29cc0ca9335","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:05.876Z"}
+{"level":"error","message":"TelegramProvider: API error on /sendMessage Unauthorized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:08.759Z"}
+{"error":"TelegramProvider: Unauthorized","level":"error","message":"NotificationService: Telegram dispatch failed after 2883ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:08.759Z"}
+{"error":"TelegramProvider: Unauthorized","level":"error","message":"PipelineWorker[81f42434-3f07-48c5-8256-e29cc0ca9335]: ❌ pipeline failed after 37247ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:08.770Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 0b821b09-ab0e-4fd3-9fbc-8be1009a9a57","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:08.770Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: post=3958038169587417986 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:08.772Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: loaded 126986 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\0b821b09-ab0e-4fd3-9fbc-8be1009a9a57\\1786432328296.jpg","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:08.774Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: resized image → 52711 bytes","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:08.796Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: sending 1 frame(s) to NVIDIA NIM","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:08.796Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames: 1 input frame(s), using 1","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:08.796Z"}
+{"level":"info","message":"NVIDIAProvider: PaliGemma frame 1/1","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:08.809Z"}
+{"level":"warn","message":"NVIDIAProvider: PaliGemma failed on frame 1: HTTP 422","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:09.184Z"}
+{"level":"warn","message":"NVIDIAProvider: PaliGemma unavailable, using multimodal fallback chain","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:09.184Z"}
+{"level":"info","message":"NVIDIAProvider: fallback vision model=nvidia/nemotron-nano-12b-v2-vl","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:09.184Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames completed in 16403ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.199Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: NVIDIA analysis completed in 16403ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.199Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: analysis saved → a535088e-45ae-4aca-9314-cf904fc7c014","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.208Z"}
+{"level":"info","message":"ReportEngine: generating report for analysis a535088e-45ae-4aca-9314-cf904fc7c014","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.210Z"}
+{"level":"info","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.219Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=0b821b09-ab0e-4fd3-9fbc-8be1009a9a57","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.220Z"}
+{"level":"error","message":"TelegramProvider: API error on /sendMessage Unauthorized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.779Z"}
+{"error":"TelegramProvider: Unauthorized","level":"error","message":"NotificationService: Telegram dispatch failed after 559ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.779Z"}
+{"error":"TelegramProvider: Unauthorized","level":"error","message":"PipelineWorker[0b821b09-ab0e-4fd3-9fbc-8be1009a9a57]: ❌ pipeline failed after 17018ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.788Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post b517ecf0-b533-4be3-96ca-e4b9fe643b0a","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.789Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: post=3960749904771248828 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.790Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: loaded 163754 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\b517ecf0-b533-4be3-96ca-e4b9fe643b0a\\1786432330489.jpg","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.794Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: resized image → 72670 bytes","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.814Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: sending 1 frame(s) to NVIDIA NIM","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.815Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames: 1 input frame(s), using 1","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.815Z"}
+{"level":"info","message":"NVIDIAProvider: PaliGemma frame 1/1","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:25.831Z"}
+{"level":"warn","message":"NVIDIAProvider: PaliGemma failed on frame 1: HTTP 422","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:26.217Z"}
+{"level":"warn","message":"NVIDIAProvider: PaliGemma unavailable, using multimodal fallback chain","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:26.217Z"}
+{"level":"info","message":"NVIDIAProvider: fallback vision model=nvidia/nemotron-nano-12b-v2-vl","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:26.218Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames completed in 9235ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.050Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: NVIDIA analysis completed in 9235ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.050Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: analysis saved → 92d2f6cd-e107-4fcf-938a-550a9e99d57d","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.062Z"}
+{"level":"info","message":"ReportEngine: generating report for analysis 92d2f6cd-e107-4fcf-938a-550a9e99d57d","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.063Z"}
+{"level":"info","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: reports saved","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.074Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=b517ecf0-b533-4be3-96ca-e4b9fe643b0a","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.074Z"}
+{"level":"error","message":"TelegramProvider: API error on /sendMessage Unauthorized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.631Z"}
+{"error":"TelegramProvider: Unauthorized","level":"error","message":"NotificationService: Telegram dispatch failed after 557ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.631Z"}
+{"error":"TelegramProvider: Unauthorized","level":"error","message":"PipelineWorker[b517ecf0-b533-4be3-96ca-e4b9fe643b0a]: ❌ pipeline failed after 9852ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.641Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post fe15c175-4db7-4f2a-9126-e37aee6b82ab","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.641Z"}
+{"level":"info","message":"PipelineWorker[fe15c175-4db7-4f2a-9126-e37aee6b82ab]: post=3960795281889292619 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.642Z"}
+{"level":"info","message":"PipelineWorker[fe15c175-4db7-4f2a-9126-e37aee6b82ab]: loaded 152706 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\fe15c175-4db7-4f2a-9126-e37aee6b82ab\\1786432329859.jpg","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.645Z"}
+{"level":"info","message":"PipelineWorker[fe15c175-4db7-4f2a-9126-e37aee6b82ab]: resized image → 81835 bytes","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.669Z"}
+{"level":"info","message":"PipelineWorker[fe15c175-4db7-4f2a-9126-e37aee6b82ab]: sending 1 frame(s) to NVIDIA NIM","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.669Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames: 1 input frame(s), using 1","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.669Z"}
+{"level":"info","message":"NVIDIAProvider: PaliGemma frame 1/1","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:35.688Z"}
+{"level":"warn","message":"NVIDIAProvider: PaliGemma failed on frame 1: HTTP 422","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:36.199Z"}
+{"level":"warn","message":"NVIDIAProvider: PaliGemma unavailable, using multimodal fallback chain","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:36.199Z"}
+{"level":"info","message":"NVIDIAProvider: fallback vision model=nvidia/nemotron-nano-12b-v2-vl","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:36.200Z"}
+{"level":"info","message":"SIGINT — shutting down","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:43.999Z"}
+{"level":"info","message":"NVIDIAProvider initialized: text=meta/llama-3.1-70b-instruct, vision=PaliGemma -> nvidia/nemotron-nano-12b-v2-vl -> meta/llama-3.2-90b-vision-instruct -> meta/llama-3.2-11b-vision-instruct","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:51.235Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:51.236Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:51.236Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:51.237Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:51.301Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:51.309Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:51.310Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:51.310Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T15:04:51.311Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T15:05:00.351Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:05:00.352Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T15:10:00.007Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:10:00.007Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:00.776Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:00.777Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:00.777Z"}
+{"level":"info","message":"Scheduler[scan]: 1 profile(s), concurrency=2","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:00.778Z"}
+{"level":"info","message":"ScraperService: scraping profile fabriziorom (instagram)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:00.791Z"}
+{"level":"info","message":"InstagramProvider.discoverPosts: profile fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:00.791Z"}
+{"level":"info","message":"InstagramHTTPClient.getRecentMedia: profileId=fabriziorom limit=50","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:00.792Z"}
+{"level":"warn","message":"InstagramHTTPClient.getRecentMedia: no timeline data intercepted for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:14.796Z"}
+{"level":"info","message":"ScraperService: discovered 0 posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:14.797Z"}
+{"level":"info","message":"ScraperService: created 0 new posts for fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:14.797Z"}
+{"level":"info","message":"Scheduler[6fe10d94-bd5f-4597-b3c5-c21378f21d2e]: 12 unprocessed post(s)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:14.798Z"}
+{"level":"info","message":"PipelineWorker: starting pipeline for post 140f889e-f15b-4f28-bc21-9e0a33e32958","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:14.798Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: post=3573008015040911575 profile=@fabriziorom","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:14.800Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: loaded 10107241 bytes from C:\\IMP\\Big potato project\\auto ai scrapper\\backend\\storage\\media\\140f889e-f15b-4f28-bc21-9e0a33e32958\\1786432328769.mp4","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:14.807Z"}
+{"level":"info","message":"FrameSamplerService: video=1786432328769.mp4 duration=20.5s interval=2s → 10 frame(s)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:14.893Z"}
+{"level":"info","message":"FrameSamplerService: loaded and resized 10 frame(s) from C:\\Users\\Anurodh\\AppData\\Local\\Temp\\frames_1786979714893","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:16.355Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: extracted 10 frames in 1551ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:16.358Z"}
+{"level":"info","message":"PipelineWorker[140f889e-f15b-4f28-bc21-9e0a33e32958]: sending 10 frame(s) to NVIDIA NIM","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:16.411Z"}
+{"level":"info","message":"NVIDIAProvider.analyzeFrames: 10 input frame(s), using 5","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:16.412Z"}
+{"level":"info","message":"NVIDIAProvider: PaliGemma frame 1/5","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:16.444Z"}
+{"level":"warn","message":"NVIDIAProvider: PaliGemma failed on frame 1: HTTP 422","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:17.544Z"}
+{"level":"warn","message":"NVIDIAProvider: PaliGemma unavailable, using multimodal fallback chain","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:17.544Z"}
+{"level":"info","message":"NVIDIAProvider: fallback vision model=nvidia/nemotron-nano-12b-v2-vl","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:17.544Z"}
+{"level":"info","message":"SIGINT — shutting down","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:24.509Z"}
+{"level":"info","message":"NVIDIAProvider initialized: text=meta/llama-3.1-70b-instruct, vision=PaliGemma -> nvidia/nemotron-nano-12b-v2-vl -> meta/llama-3.2-90b-vision-instruct -> meta/llama-3.2-11b-vision-instruct","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:49.010Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:49.012Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:49.013Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:49.014Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:49.073Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:49.087Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:49.089Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:49.090Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T15:15:49.091Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T15:20:00.898Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:20:00.899Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:28.876Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:28.877Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:28.877Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:28.888Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:28.897Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:28.898Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:28.898Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:28.899Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:48.021Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:48.022Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:48.023Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:48.033Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:48.041Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:48.042Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:48.042Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:48.043Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:57.142Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:57.143Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:57.143Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:57.153Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:57.161Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:57.162Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:57.162Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T15:21:57.163Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:04.703Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:04.704Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:04.704Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:04.713Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:04.721Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:04.722Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:04.722Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:04.723Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:05.904Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:05.905Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:05.905Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:05.913Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:05.921Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:05.923Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:05.924Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:05.924Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:13.596Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:13.596Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:13.597Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:13.606Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:13.615Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:13.615Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:13.616Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:13.616Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:21.332Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:21.333Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:21.334Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:21.342Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:21.351Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:21.352Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:21.352Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T15:22:21.352Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:23:17.905Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-08-17T15:23:17.906Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:23:17.907Z"}
+{"level":"info","message":"🚀 Server running on http://localhost:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:23:17.916Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:23:17.925Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:23:17.926Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-08-17T15:23:17.926Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-08-17T15:23:17.927Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-08-17T15:25:00.598Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 0ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:25:00.599Z"}
+{"level":"info","message":"NotificationService.sendReportToTelegram: postId=0b821b09-ab0e-4fd3-9fbc-8be1009a9a57","service":"social-intelligence-platform","timestamp":"2026-08-17T15:27:24.136Z"}
+{"level":"error","message":"TelegramProvider: API error on /sendMessage Unauthorized","service":"social-intelligence-platform","timestamp":"2026-08-17T15:27:24.827Z"}
+{"error":"TelegramProvider: Unauthorized","level":"error","message":"NotificationService: Telegram dispatch failed after 691ms","service":"social-intelligence-platform","timestamp":"2026-08-17T15:27:24.827Z"}
+{"error":"TelegramProvider: Unauthorized","level":"error","message":"POST /reports/6d2da2d0-495c-48d1-86e2-11a1a6d3eb48/send","service":"social-intelligence-platform","timestamp":"2026-08-17T15:27:24.834Z"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"base.d.ts","sourceRoot":"","sources":["../../../src/providers/ai/base.ts"],"names":[],"mappings":"AACA,MAAM,WAAW,UAAU;IACzB;;;;;OAKG;IACH,YAAY,CAAC,WAAW,EAAE,MAAM,EAAE,SAAS,EAAE,MAAM,GAAG,OAAO,CAAC,GAAG,CAAC,CAAC;IAEnE;;;;OAIG;IACH,WAAW,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,GAAG,CAAC,CAAC;CACzC"}
