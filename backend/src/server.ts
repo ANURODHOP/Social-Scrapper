@@ -143,13 +143,16 @@ function wireDynamicHandlers(): void {
         
         let documentPath: string | undefined;
         if (report.filePath) {
-          const path = await import('path');
-          const htmlRelPath = report.filePath.replace('.md', '.html');
-          documentPath = path.join(process.cwd(), 'storage', htmlRelPath);
-          const fs = await import('fs');
-          if (!fs.existsSync(documentPath)) {
-            documentPath = undefined;
+          // Cloud storage: filePath is an https:// URL — we can't read it as a local file
+          const isCloudUrl = report.filePath.startsWith('http://') || report.filePath.startsWith('https://');
+          if (!isCloudUrl) {
+            const pathMod = await import('path');
+            const htmlRelPath = report.filePath.replace('.md', '.html');
+            const candidatePath = pathMod.join(process.cwd(), 'storage', htmlRelPath);
+            const fsMod = await import('fs');
+            if (fsMod.existsSync(candidatePath)) documentPath = candidatePath;
           }
+          // For cloud URLs, Telegram will receive markdown text only (no attachment).
         }
 
         const { latencyMs } = await notifications.sendReportToTelegram({

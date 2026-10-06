@@ -70,7 +70,7 @@ class Config {
         return result;
     }
     overrideWithEnv(config) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x;
         const c = config;
         // Database
         if (process.env['DATABASE_URL']) {
@@ -150,7 +150,12 @@ class Config {
             (_o = c.notifications).email ?? (_o.email = {});
             c.notifications.email.from = process.env['EMAIL_FROM'];
         }
-        // Storage
+        // Storage — provider selection
+        if (process.env['STORAGE_PROVIDER']) {
+            c.storage ?? (c.storage = {});
+            c.storage.provider = process.env['STORAGE_PROVIDER'];
+        }
+        // AWS S3
         if (process.env['AWS_ACCESS_KEY_ID']) {
             c.storage ?? (c.storage = {});
             (_p = c.storage).s3 ?? (_p.s3 = {});
@@ -170,6 +175,32 @@ class Config {
             c.storage ?? (c.storage = {});
             (_s = c.storage).s3 ?? (_s.s3 = {});
             c.storage.s3.bucket = process.env['AWS_S3_BUCKET'];
+        }
+        if (process.env['AWS_S3_ENDPOINT']) {
+            c.storage ?? (c.storage = {});
+            (_t = c.storage).s3 ?? (_t.s3 = {});
+            c.storage.s3.endpoint = process.env['AWS_S3_ENDPOINT'];
+        }
+        // Cloudflare R2
+        if (process.env['R2_ACCOUNT_ID']) {
+            c.storage ?? (c.storage = {});
+            (_u = c.storage).r2 ?? (_u.r2 = {});
+            c.storage.r2.accountId = process.env['R2_ACCOUNT_ID'];
+        }
+        if (process.env['R2_ACCESS_KEY_ID']) {
+            c.storage ?? (c.storage = {});
+            (_v = c.storage).r2 ?? (_v.r2 = {});
+            c.storage.r2.accessKeyId = process.env['R2_ACCESS_KEY_ID'];
+        }
+        if (process.env['R2_SECRET_ACCESS_KEY']) {
+            c.storage ?? (c.storage = {});
+            (_w = c.storage).r2 ?? (_w.r2 = {});
+            c.storage.r2.secretAccessKey = process.env['R2_SECRET_ACCESS_KEY'];
+        }
+        if (process.env['R2_BUCKET']) {
+            c.storage ?? (c.storage = {});
+            (_x = c.storage).r2 ?? (_x.r2 = {});
+            c.storage.r2.bucket = process.env['R2_BUCKET'];
         }
         return c;
     }

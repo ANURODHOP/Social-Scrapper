@@ -1,25 +1,57 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnalysisRepository = void 0;
-const prisma_1 = __importDefault(require("../prisma"));
+// src/repositories/analysis.repository.ts
+const firebase_1 = require("../firebase");
+const crypto_1 = require("crypto");
+const COL = 'analysis';
+function toAnalysis(id, data) {
+    return {
+        id,
+        postId: data['postId'],
+        summary: data['summary'] ?? null,
+        topics: data['topics'] ?? null,
+        sentiment: data['sentiment'] ?? null,
+        viralScore: data['viralScore'] ?? null,
+        visualHook: data['visualHook'] ?? null,
+        keyTakeaways: data['keyTakeaways'] ?? null,
+        createdAt: data['createdAt']?.toDate?.() ?? new Date(data['createdAt']),
+        updatedAt: data['updatedAt']?.toDate?.() ?? new Date(data['updatedAt']),
+    };
+}
 class AnalysisRepository {
     async create(data) {
-        return prisma_1.default.analysis.create({ data });
+        const id = (0, crypto_1.randomUUID)();
+        const now = new Date();
+        const doc = { ...data, createdAt: now, updatedAt: now };
+        await firebase_1.db.collection(COL).doc(id).set(doc);
+        return toAnalysis(id, doc);
     }
     async update(id, data) {
-        return prisma_1.default.analysis.update({ where: { id }, data: { ...data, updatedAt: new Date() } });
+        const now = new Date();
+        await firebase_1.db.collection(COL).doc(id).update({ ...data, updatedAt: now });
+        return (await this.findById(id));
     }
     async findByPostId(postId) {
-        return prisma_1.default.analysis.findUnique({ where: { postId } });
+        const snap = await firebase_1.db.collection(COL)
+            .where('postId', '==', postId)
+            .limit(1)
+            .get();
+        if (snap.empty)
+            return null;
+        return toAnalysis(snap.docs[0].id, snap.docs[0].data());
     }
     async findById(id) {
-        return prisma_1.default.analysis.findUnique({ where: { id } });
+        const doc = await firebase_1.db.collection(COL).doc(id).get();
+        if (!doc.exists)
+            return null;
+        return toAnalysis(doc.id, doc.data());
     }
     async deleteByPostId(postId) {
-        return prisma_1.default.analysis.deleteMany({ where: { postId } });
+        const snap = await firebase_1.db.collection(COL).where('postId', '==', postId).get();
+        const batch = firebase_1.db.batch();
+        snap.docs.forEach(doc => batch.delete(doc.ref));
+        await batch.commit();
     }
 }
 exports.AnalysisRepository = AnalysisRepository;

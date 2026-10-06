@@ -5,6 +5,7 @@
 
 import path from 'path';
 import fs   from 'fs';
+import { StorageProvider } from '../providers/storage/base';
 import { LocalStorageProvider } from '../providers/storage/local';
 import { ReportGenerator }      from '../services/report/ReportGenerator';
 import { DeterministicAnalysisResult } from '../services/report/ReportAnalyzer';
@@ -20,7 +21,7 @@ import logger from '../logger';
 
 export class PipelineWorker {
   constructor(
-    private readonly storage:       LocalStorageProvider,
+    private readonly storage: (StorageProvider & { buildStructuredPath(p: string, u: string, id: string, sub: string): string }),
     private readonly frameSampler:  FrameSamplerService,
     private readonly reportGenerator: ReportGenerator,
     private readonly notifications: NotificationService,
@@ -152,7 +153,7 @@ export class PipelineWorker {
 
       const report = this.reportGenerator.generateReport({
         permalink:   post.permalink ?? '',
-        caption:     post.caption,
+        caption:     post.caption ?? null,
         platform:    profile.platform,
         username:    profile.username,
         publishedAt: post.publishedAt,
@@ -197,12 +198,22 @@ export class PipelineWorker {
 
       // ── Step 7: Telegram notification ─────────────────────────────────────
       const tgStart = Date.now();
+
+      // For local storage, we can send the HTML file as a document.
+      // For cloud storage, the HTML was uploaded and the URL is returned by upload().
+      let documentPath: string | undefined;
+      if (this.storage instanceof LocalStorageProvider) {
+        const localHtmlPath = path.join(process.cwd(), 'storage', htmlPath);
+        if (fs.existsSync(localHtmlPath)) documentPath = localHtmlPath;
+      }
+      // Cloud: TelegramProvider does not support uploading from URL yet — send markdown only.
+
       await this.notifications.sendReportToTelegram({
         chatId:    this.telegramChatId,
         markdown:  report.markdown,
         postId,
         profileId: profile.id,
-        documentPath: path.join(process.cwd(), 'storage', htmlPath),
+        documentPath,
       });
       tel.telegramLatencyMs = Date.now() - tgStart;
       logger.info(`PipelineWorker[${postId}]: Telegram sent in ${tel.telegramLatencyMs}ms`);

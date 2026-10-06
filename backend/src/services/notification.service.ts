@@ -1,9 +1,10 @@
 // src/services/notification.service.ts
 // Wraps TelegramProvider with pipeline telemetry tracking.
-// Records latency, logs bytes, and persists notification history.
+// Records latency and logs notification attempts to Firestore.
 
 import { TelegramProvider } from '../providers/notification/telegram';
-import prisma from '../prisma';
+import { db } from '../firebase';
+import { randomUUID } from 'crypto';
 import logger from '../logger';
 
 export class NotificationService {
@@ -15,7 +16,7 @@ export class NotificationService {
 
   /**
    * Send a Markdown report notification to Telegram.
-   * Tracks latency and persists to NotificationHistory.
+   * Tracks latency and persists to Firestore notificationHistory.
    */
   async sendReportToTelegram(opts: {
     chatId:    string;
@@ -30,14 +31,11 @@ export class NotificationService {
 
     try {
       if (opts.documentPath) {
-        // Send as document file (e.g. HTML/PDF report)
         const summary = opts.markdown.slice(0, 500) + (opts.markdown.length > 500 ? '…' : '');
         await this.telegram.sendDocumentFile(opts.chatId, opts.documentPath, summary);
       } else if (opts.thumbnailBuffer) {
-        // Send thumbnail + summary via photo
         const summary = opts.markdown.slice(0, 900) + (opts.markdown.length > 900 ? '…' : '');
         await this.telegram.sendImageBuffer(opts.chatId, opts.thumbnailBuffer, summary);
-        // Send full report as follow-up text (may be long)
         const remaining = opts.markdown.slice(900);
         if (remaining.trim()) {
           await this.telegram.sendMarkdown(opts.chatId, remaining);
@@ -88,15 +86,15 @@ export class NotificationService {
     content:    string;
     status:     string;
   }): Promise<void> {
-    await prisma.notificationHistory.create({
-      data: {
-        postId:    data.postId,
-        profileId: data.profileId,
-        provider:  data.provider,
-        recipient: data.recipient,
-        content:   data.content.slice(0, 4000),
-        status:    data.status,
-      },
+    const id = randomUUID();
+    await db.collection('notificationHistory').doc(id).set({
+      postId:    data.postId ?? null,
+      profileId: data.profileId ?? null,
+      provider:  data.provider,
+      recipient: data.recipient,
+      content:   data.content.slice(0, 4000),
+      status:    data.status,
+      createdAt: new Date(),
     });
   }
 }

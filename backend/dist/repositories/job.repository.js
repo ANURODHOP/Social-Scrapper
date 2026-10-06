@@ -1,41 +1,113 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JobRepository = void 0;
-const prisma_1 = __importDefault(require("../prisma"));
+// src/repositories/job.repository.ts
+const firebase_1 = require("../firebase");
+const crypto_1 = require("crypto");
+const JOBS_COL = 'scheduledJobs';
+const HISTORY_COL = 'jobHistory';
+const RUNS_COL = 'schedulerRuns';
 class JobRepository {
     async createScheduledJob(data) {
-        return prisma_1.default.scheduledJob.create({ data });
+        const id = (0, crypto_1.randomUUID)();
+        const doc = { ...data };
+        await firebase_1.db.collection(JOBS_COL).doc(id).set(doc);
+        return { id, ...doc };
     }
     async updateScheduledJob(id, data) {
-        return prisma_1.default.scheduledJob.update({ where: { id }, data });
+        await firebase_1.db.collection(JOBS_COL).doc(id).update(data);
+        const updated = await this.findScheduledJobById(id);
+        return updated;
     }
     async findScheduledJobById(id) {
-        return prisma_1.default.scheduledJob.findUnique({ where: { id } });
+        const doc = await firebase_1.db.collection(JOBS_COL).doc(id).get();
+        if (!doc.exists)
+            return null;
+        const d = doc.data();
+        return {
+            id: doc.id,
+            name: d['name'],
+            status: d['status'],
+            scheduledAt: d['scheduledAt']?.toDate?.() ?? new Date(d['scheduledAt']),
+            metadata: d['metadata'],
+        };
     }
     async findScheduledJobs(status) {
-        return prisma_1.default.scheduledJob.findMany({
-            where: status ? { status } : {},
-            orderBy: { scheduledAt: 'desc' },
-            take: 100,
+        let q = firebase_1.db.collection(JOBS_COL);
+        if (status) {
+            q = q.where('status', '==', status);
+        }
+        q = q.orderBy('scheduledAt', 'desc').limit(100);
+        const snap = await q.get();
+        return snap.docs.map(doc => {
+            const d = doc.data();
+            return {
+                id: doc.id,
+                name: d['name'],
+                status: d['status'],
+                scheduledAt: d['scheduledAt']?.toDate?.() ?? new Date(d['scheduledAt']),
+                metadata: d['metadata'],
+            };
         });
     }
     async createJobHistory(data) {
-        return prisma_1.default.jobHistory.create({ data });
+        const id = (0, crypto_1.randomUUID)();
+        const doc = { ...data };
+        await firebase_1.db.collection(HISTORY_COL).doc(id).set(doc);
+        return { id, ...doc };
     }
-    async findJobHistory(limit = 50) {
-        return prisma_1.default.jobHistory.findMany({ orderBy: { finishedAt: 'desc' }, take: limit });
+    async findJobHistory(limitCount = 50) {
+        const snap = await firebase_1.db.collection(HISTORY_COL)
+            .orderBy('finishedAt', 'desc')
+            .limit(limitCount)
+            .get();
+        return snap.docs.map(doc => {
+            const d = doc.data();
+            return {
+                id: doc.id,
+                name: d['name'],
+                status: d['status'],
+                startedAt: d['startedAt']?.toDate?.() ?? new Date(d['startedAt']),
+                finishedAt: d['finishedAt']?.toDate?.() ?? new Date(d['finishedAt']),
+                error: d['error'] ?? null,
+            };
+        });
     }
     async createSchedulerRun(name) {
-        return prisma_1.default.schedulerRun.create({ data: { name, status: 'started', startedAt: new Date() } });
+        const id = (0, crypto_1.randomUUID)();
+        const now = new Date();
+        const doc = { name, status: 'started', startedAt: now };
+        await firebase_1.db.collection(RUNS_COL).doc(id).set(doc);
+        return { id, ...doc };
     }
     async finishSchedulerRun(id, status) {
-        return prisma_1.default.schedulerRun.update({ where: { id }, data: { status, finishedAt: new Date() } });
+        const now = new Date();
+        await firebase_1.db.collection(RUNS_COL).doc(id).update({ status, finishedAt: now });
+        const doc = await firebase_1.db.collection(RUNS_COL).doc(id).get();
+        const d = doc.data();
+        return {
+            id: doc.id,
+            name: d['name'],
+            status: d['status'],
+            startedAt: d['startedAt']?.toDate?.() ?? new Date(d['startedAt']),
+            finishedAt: d['finishedAt']?.toDate?.() ?? new Date(d['finishedAt']),
+        };
     }
-    async findSchedulerRuns(limit = 20) {
-        return prisma_1.default.schedulerRun.findMany({ orderBy: { startedAt: 'desc' }, take: limit });
+    async findSchedulerRuns(limitCount = 20) {
+        const snap = await firebase_1.db.collection(RUNS_COL)
+            .orderBy('startedAt', 'desc')
+            .limit(limitCount)
+            .get();
+        return snap.docs.map(doc => {
+            const d = doc.data();
+            return {
+                id: doc.id,
+                name: d['name'],
+                status: d['status'],
+                startedAt: d['startedAt']?.toDate?.() ?? new Date(d['startedAt']),
+                finishedAt: d['finishedAt'] ? (d['finishedAt']?.toDate?.() ?? new Date(d['finishedAt'])) : null,
+            };
+        });
     }
 }
 exports.JobRepository = JobRepository;

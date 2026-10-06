@@ -6,41 +6,32 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ScraperService = void 0;
 const logger_1 = __importDefault(require("../logger"));
 class ScraperService {
-    constructor(socialProvider, storageProvider, prisma, jobQueue) {
+    constructor(socialProvider, storageProvider, profileRepo, postRepo, mediaRepo, jobQueue) {
         this.socialProvider = socialProvider;
         this.storageProvider = storageProvider;
-        this.prisma = prisma;
+        this.profileRepo = profileRepo;
+        this.postRepo = postRepo;
+        this.mediaRepo = mediaRepo;
         this.jobQueue = jobQueue;
     }
     /**
      * Scrape a profile for new posts.
-     * Every execution compares fetched posts against the Posts table using the
-     * unique (platform, platformId) constraint. Only posts not already present
-     * are created. This prevents duplicates regardless of the "since" timestamp.
+     * Every execution compares fetched posts against existing posts in Firestore.
+     * Only posts not already present are created.
      */
     async scrapeProfile(profileId) {
-        const profile = await this.prisma.profile.findUnique({
-            where: { id: profileId },
-        });
+        const profile = await this.profileRepo.findById(profileId);
         if (!profile) {
             throw new Error(`Profile not found: ${profileId}`);
         }
         logger_1.default.info(`ScraperService: scraping profile ${profile.username} (${profile.platform})`);
-        // Discover all available posts — the provider handles pagination.
-        // We do NOT rely on a "since" timestamp as the sole dedup mechanism.
+        // Discover all available posts
         const posts = await this.socialProvider.discoverPosts(profile.platformId);
         logger_1.default.info(`ScraperService: discovered ${posts.length} posts for ${profile.username}`);
         let newCount = 0;
         for (const postData of posts) {
-            // Existence check by platform + platformId unique constraint
-            const existing = await this.prisma.post.findUnique({
-                where: {
-                    platform_platformId: {
-                        platform: profile.platform,
-                        platformId: postData.id,
-                    },
-                },
-            });
+            // Existence check by platform + platformId
+            const existing = await this.postRepo.findByPlatformAndId(profile.platform, postData.id);
             if (existing) {
                 // Already in database — skip
                 continue;
@@ -51,19 +42,17 @@ class ScraperService {
         logger_1.default.info(`ScraperService: created ${newCount} new posts for ${profile.username}`);
     }
     async createPost(profileId, platform, postData) {
-        const post = await this.prisma.post.create({
-            data: {
-                platform,
-                platformId: postData.id,
-                profileId,
-                caption: postData.caption,
-                mediaType: postData.mediaType,
-                permalink: postData.permalink,
-                thumbnailUrl: postData.thumbnailUrl,
-                publishedAt: postData.publishedAt
-                    ? new Date(postData.publishedAt)
-                    : new Date(),
-            },
+        const post = await this.postRepo.create({
+            platform,
+            platformId: postData.id,
+            profileId,
+            caption: postData.caption,
+            mediaType: postData.mediaType,
+            permalink: postData.permalink,
+            thumbnailUrl: postData.thumbnailUrl,
+            publishedAt: postData.publishedAt
+                ? new Date(postData.publishedAt)
+                : new Date(),
         });
         logger_1.default.info(`ScraperService: created post ${post.id} (platformId=${postData.id})`);
         // Download and store associated media
@@ -86,29 +75,25 @@ class ScraperService {
         const timestamp = Date.now();
         const filePath = `media/${postId}/${timestamp}.${extension}`;
         const storedPath = await this.storageProvider.upload(mediaBuffer, filePath);
-        const media = await this.prisma.media.create({
-            data: {
-                postId,
-                mediaUrl: storedPath,
-                mediaType,
-                width: mediaItem.width,
-                height: mediaItem.height,
-                duration: mediaItem.duration,
-                fileSize: mediaBuffer.length,
-            },
+        const media = await this.mediaRepo.createMedia({
+            postId,
+            mediaUrl: storedPath,
+            mediaType,
+            width: mediaItem.width,
+            height: mediaItem.height,
+            duration: mediaItem.duration,
+            fileSize: mediaBuffer.length,
         });
-        await this.prisma.mediaFiles.create({
-            data: {
-                mediaId: media.id,
-                fileType: 'original',
-                filePath: storedPath,
-                fileSize: mediaBuffer.length,
-                width: mediaItem.width,
-                height: mediaItem.height,
-                duration: mediaItem.duration,
-            },
+        await this.mediaRepo.createMediaFile({
+            mediaId: media.id,
+            fileType: 'original',
+            filePath: storedPath,
+            fileSize: mediaBuffer.length,
+            width: mediaItem.width,
+            height: mediaItem.height,
+            duration: mediaItem.duration,
         });
-        // Enqueue for processing pipeline (Phase 8)
+        // Enqueue for processing pipeline
         await this.jobQueue.add('process-media', {
             mediaId: media.id,
             filePath: storedPath,

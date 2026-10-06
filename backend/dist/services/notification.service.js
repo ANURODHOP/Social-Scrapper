@@ -1,13 +1,14 @@
 "use strict";
 // src/services/notification.service.ts
 // Wraps TelegramProvider with pipeline telemetry tracking.
-// Records latency, logs bytes, and persists notification history.
+// Records latency and logs notification attempts to Firestore.
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationService = void 0;
-const prisma_1 = __importDefault(require("../prisma"));
+const firebase_1 = require("../firebase");
+const crypto_1 = require("crypto");
 const logger_1 = __importDefault(require("../logger"));
 class NotificationService {
     constructor(telegram) {
@@ -15,22 +16,19 @@ class NotificationService {
     }
     /**
      * Send a Markdown report notification to Telegram.
-     * Tracks latency and persists to NotificationHistory.
+     * Tracks latency and persists to Firestore notificationHistory.
      */
     async sendReportToTelegram(opts) {
         const start = Date.now();
         logger_1.default.info(`NotificationService.sendReportToTelegram: postId=${opts.postId ?? 'n/a'}`);
         try {
             if (opts.documentPath) {
-                // Send as document file (e.g. HTML/PDF report)
                 const summary = opts.markdown.slice(0, 500) + (opts.markdown.length > 500 ? '…' : '');
                 await this.telegram.sendDocumentFile(opts.chatId, opts.documentPath, summary);
             }
             else if (opts.thumbnailBuffer) {
-                // Send thumbnail + summary via photo
                 const summary = opts.markdown.slice(0, 900) + (opts.markdown.length > 900 ? '…' : '');
                 await this.telegram.sendImageBuffer(opts.chatId, opts.thumbnailBuffer, summary);
-                // Send full report as follow-up text (may be long)
                 const remaining = opts.markdown.slice(900);
                 if (remaining.trim()) {
                     await this.telegram.sendMarkdown(opts.chatId, remaining);
@@ -68,15 +66,15 @@ class NotificationService {
     }
     // ─── Private ─────────────────────────────────────────────────────────────
     async persistHistory(data) {
-        await prisma_1.default.notificationHistory.create({
-            data: {
-                postId: data.postId,
-                profileId: data.profileId,
-                provider: data.provider,
-                recipient: data.recipient,
-                content: data.content.slice(0, 4000),
-                status: data.status,
-            },
+        const id = (0, crypto_1.randomUUID)();
+        await firebase_1.db.collection('notificationHistory').doc(id).set({
+            postId: data.postId ?? null,
+            profileId: data.profileId ?? null,
+            provider: data.provider,
+            recipient: data.recipient,
+            content: data.content.slice(0, 4000),
+            status: data.status,
+            createdAt: new Date(),
         });
     }
 }

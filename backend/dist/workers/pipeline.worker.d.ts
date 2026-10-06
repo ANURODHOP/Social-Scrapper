@@ -1,4 +1,4 @@
-import { LocalStorageProvider } from '../providers/storage/local';
+import { StorageProvider } from '../providers/storage/base';
 import { ReportGenerator } from '../services/report/ReportGenerator';
 import { FrameSamplerService } from '../services/frame.sampler.service';
 import { NotificationService } from '../services/notification.service';
@@ -19,7 +19,9 @@ export declare class PipelineWorker {
     private readonly reportRepo;
     private readonly profileRepo;
     private readonly telegramChatId;
-    constructor(storage: LocalStorageProvider, frameSampler: FrameSamplerService, reportGenerator: ReportGenerator, notifications: NotificationService, postRepo: PostRepository, mediaRepo: MediaRepository, analysisRepo: AnalysisRepository, reportRepo: ReportRepository, profileRepo: ProfileRepository, telegramChatId: string);
+    constructor(storage: (StorageProvider & {
+        buildStructuredPath(p: string, u: string, id: string, sub: string): string;
+    }), frameSampler: FrameSamplerService, reportGenerator: ReportGenerator, notifications: NotificationService, postRepo: PostRepository, mediaRepo: MediaRepository, analysisRepo: AnalysisRepository, reportRepo: ReportRepository, profileRepo: ProfileRepository, telegramChatId: string);
     /**
      * Execute the full analysis pipeline for one post.
      * Returns telemetry for the caller to log/persist.

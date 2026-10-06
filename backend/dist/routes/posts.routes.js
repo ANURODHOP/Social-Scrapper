@@ -5,32 +5,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // src/routes/posts.routes.ts
 const express_1 = require("express");
+const post_repository_1 = require("../repositories/post.repository");
+const analysis_repository_1 = require("../repositories/analysis.repository");
+const report_repository_1 = require("../repositories/report.repository");
 const media_repository_1 = require("../repositories/media.repository");
 const types_1 = require("../types");
-const prisma_1 = __importDefault(require("../prisma"));
 const logger_1 = __importDefault(require("../logger"));
 const router = (0, express_1.Router)();
+const postRepo = new post_repository_1.PostRepository();
 const mediaRepo = new media_repository_1.MediaRepository();
+const analysisRepo = new analysis_repository_1.AnalysisRepository();
+const reportRepo = new report_repository_1.ReportRepository();
 // GET /api/posts?profileId=...&platform=...&mediaType=...&isProcessed=...&limit=50
 router.get('/', async (req, res) => {
     try {
         const { profileId, platform, mediaType, isProcessed, limit } = req.query;
-        const where = { deletedAt: null };
+        // Start with all non-deleted posts, then filter
+        let posts = await postRepo.findAll(Math.min(parseInt(limit ?? '50', 10), 200));
         if (profileId)
-            where.profileId = profileId;
+            posts = posts.filter(p => p.profileId === profileId);
         if (platform)
-            where.platform = platform;
+            posts = posts.filter(p => p.platform === platform);
         if (mediaType)
-            where.mediaType = mediaType;
+            posts = posts.filter(p => p.mediaType === mediaType);
         if (isProcessed !== undefined && isProcessed !== '') {
-            where.isProcessed = isProcessed === 'true';
+            const flag = isProcessed === 'true';
+            posts = posts.filter(p => p.isProcessed === flag);
         }
-        const posts = await prisma_1.default.post.findMany({
-            where,
-            orderBy: { publishedAt: 'desc' },
-            take: Math.min(parseInt(limit ?? '50', 10), 200),
-            include: { profile: { select: { username: true, platform: true, displayName: true } } },
-        });
         res.json((0, types_1.ok)(posts));
     }
     catch (err) {
@@ -41,20 +42,18 @@ router.get('/', async (req, res) => {
 // GET /api/posts/:id  (full detail with media, analysis, reports)
 router.get('/:id', async (req, res) => {
     try {
-        const post = await prisma_1.default.post.findUnique({
-            where: { id: req.params['id'] },
-            include: {
-                profile: { select: { username: true, platform: true, displayName: true, profilePicUrl: true } },
-                media: { include: { mediaFiles: true } },
-                analysis: true,
-                reports: { orderBy: { generatedAt: 'desc' }, take: 5 },
-            },
-        });
+        const id = req.params['id'];
+        const post = await postRepo.findById(id);
         if (!post) {
             res.status(404).json((0, types_1.fail)('Post not found'));
             return;
         }
-        res.json((0, types_1.ok)(post));
+        const [media, analysis, reports] = await Promise.all([
+            mediaRepo.getMediaForPost(id),
+            analysisRepo.findByPostId(id),
+            reportRepo.findByPostId(id),
+        ]);
+        res.json((0, types_1.ok)({ ...post, media, analysis, reports }));
     }
     catch (err) {
         logger_1.default.error(`GET /posts/${req.params['id']}`, { error: err });

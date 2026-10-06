@@ -10,6 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PipelineWorker = void 0;
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
+const local_1 = require("../providers/storage/local");
 const logger_1 = __importDefault(require("../logger"));
 class PipelineWorker {
     constructor(storage, frameSampler, reportGenerator, notifications, postRepo, mediaRepo, analysisRepo, reportRepo, profileRepo, telegramChatId) {
@@ -130,7 +131,7 @@ class PipelineWorker {
             const aiStart = Date.now();
             const report = this.reportGenerator.generateReport({
                 permalink: post.permalink ?? '',
-                caption: post.caption,
+                caption: post.caption ?? null,
                 platform: profile.platform,
                 username: profile.username,
                 publishedAt: post.publishedAt,
@@ -164,12 +165,21 @@ class PipelineWorker {
             logger_1.default.info(`PipelineWorker[${postId}]: reports saved`);
             // ── Step 7: Telegram notification ─────────────────────────────────────
             const tgStart = Date.now();
+            // For local storage, we can send the HTML file as a document.
+            // For cloud storage, the HTML was uploaded and the URL is returned by upload().
+            let documentPath;
+            if (this.storage instanceof local_1.LocalStorageProvider) {
+                const localHtmlPath = path_1.default.join(process.cwd(), 'storage', htmlPath);
+                if (fs_1.default.existsSync(localHtmlPath))
+                    documentPath = localHtmlPath;
+            }
+            // Cloud: TelegramProvider does not support uploading from URL yet — send markdown only.
             await this.notifications.sendReportToTelegram({
                 chatId: this.telegramChatId,
                 markdown: report.markdown,
                 postId,
                 profileId: profile.id,
-                documentPath: path_1.default.join(process.cwd(), 'storage', htmlPath),
+                documentPath,
             });
             tel.telegramLatencyMs = Date.now() - tgStart;
             logger_1.default.info(`PipelineWorker[${postId}]: Telegram sent in ${tel.telegramLatencyMs}ms`);

@@ -53,6 +53,7 @@ router.post('/', async (req, res) => {
             platform: String(platform),
             platformId: String(platformId),
             username: String(username),
+            isActive: true,
             displayName: displayName ? String(displayName) : undefined,
             bio: bio ? String(bio) : undefined,
             followerCount: typeof followerCount === 'number' ? followerCount : undefined,

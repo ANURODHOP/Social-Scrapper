@@ -6,10 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.dynamicHandlers = void 0;
 // src/routes/reports.routes.ts
 const express_1 = require("express");
+const report_repository_1 = require("../repositories/report.repository");
 const types_1 = require("../types");
-const prisma_1 = __importDefault(require("../prisma"));
 const logger_1 = __importDefault(require("../logger"));
 const router = (0, express_1.Router)();
+const reportRepo = new report_repository_1.ReportRepository();
 exports.dynamicHandlers = {
     sendReport: null
 };
@@ -17,21 +18,14 @@ exports.dynamicHandlers = {
 router.get('/', async (req, res) => {
     try {
         const { postId, profileId, limit } = req.query;
-        const take = Math.min(parseInt(limit ?? '50', 10), 200);
-        const where = { deletedAt: null };
+        const limitCount = Math.min(parseInt(limit ?? '50', 10), 200);
+        let reports;
         if (postId)
-            where.postId = postId;
-        if (profileId)
-            where.profileId = profileId;
-        const reports = await prisma_1.default.report.findMany({
-            where,
-            orderBy: { generatedAt: 'desc' },
-            take,
-            include: {
-                profile: { select: { username: true, platform: true } },
-                post: { select: { mediaType: true, permalink: true, publishedAt: true } },
-            },
-        });
+            reports = await reportRepo.findByPostId(postId);
+        else if (profileId)
+            reports = await reportRepo.findByProfileId(profileId);
+        else
+            reports = await reportRepo.findAll(limitCount);
         res.json((0, types_1.ok)(reports));
     }
     catch (err) {
@@ -42,13 +36,7 @@ router.get('/', async (req, res) => {
 // GET /api/reports/:id
 router.get('/:id', async (req, res) => {
     try {
-        const report = await prisma_1.default.report.findUnique({
-            where: { id: req.params['id'] },
-            include: {
-                profile: { select: { username: true, platform: true } },
-                post: { select: { mediaType: true, permalink: true, caption: true, publishedAt: true } },
-            },
-        });
+        const report = await reportRepo.findById(req.params['id']);
         if (!report) {
             res.status(404).json((0, types_1.fail)('Report not found'));
             return;

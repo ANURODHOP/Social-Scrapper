@@ -4,7 +4,7 @@ export declare class NotificationService {
     constructor(telegram: TelegramProvider);
     /**
      * Send a Markdown report notification to Telegram.
-     * Tracks latency and persists to NotificationHistory.
+     * Tracks latency and persists to Firestore notificationHistory.
      */
     sendReportToTelegram(opts: {
         chatId: string;

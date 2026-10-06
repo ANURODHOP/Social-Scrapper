@@ -2,7 +2,7 @@
 // Dashboard summary endpoint — aggregates stats from all repositories.
 import { Router, Request, Response } from 'express';
 import { ok, fail } from '../types';
-import prisma from '../prisma';
+import { db } from '../firebase';
 import { Scheduler } from '../scheduler';
 import logger from '../logger';
 
@@ -15,37 +15,25 @@ router.get('/', async (_req: Request, res: Response): Promise<void> => {
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
     const [
-      profileCount,
-      totalPosts,
-      totalReports,
-      postsToday,
-      reelsToday,
-      recentPosts,
-      recentReports,
-      schedulerRuns,
-      telegramNotifs,
+      profileSnap,
+      postSnap,
+      reportSnap,
+      postsTodaySnap,
+      reelsTodaySnap,
+      recentPostsSnap,
+      recentReportsSnap,
+      schedulerRunsSnap,
+      telegramNotifsSnap,
     ] = await Promise.all([
-      prisma.profile.count({ where: { deletedAt: null, isActive: true } }),
-      prisma.post.count({ where: { deletedAt: null } }),
-      prisma.report.count({ where: { deletedAt: null } }),
-      prisma.post.count({ where: { deletedAt: null, createdAt: { gte: today } } }),
-      prisma.post.count({ where: { deletedAt: null, createdAt: { gte: today }, mediaType: { in: ['VIDEO', 'REEL'] } } }),
-      prisma.post.findMany({
-        where:   { deletedAt: null },
-        orderBy: { publishedAt: 'desc' },
-        take:    5,
-        include: { profile: { select: { username: true, platform: true } } },
-      }),
-      prisma.report.findMany({
-        where:   { deletedAt: null },
-        orderBy: { generatedAt: 'desc' },
-        take:    5,
-      }),
-      prisma.schedulerRun.findMany({
-        orderBy: { startedAt: 'desc' },
-        take:    5,
-      }),
-      prisma.notificationHistory.count({ where: { provider: 'telegram', status: 'sent' } }),
+      db.collection('profiles').where('deletedAt', '==', null).where('isActive', '==', true).count().get(),
+      db.collection('posts').where('deletedAt', '==', null).count().get(),
+      db.collection('reports').count().get(),
+      db.collection('posts').where('deletedAt', '==', null).where('createdAt', '>=', today).count().get(),
+      db.collection('posts').where('deletedAt', '==', null).where('createdAt', '>=', today).where('mediaType', 'in', ['VIDEO', 'REEL']).count().get(),
+      db.collection('posts').where('deletedAt', '==', null).orderBy('publishedAt', 'desc').limit(5).get(),
+      db.collection('reports').orderBy('generatedAt', 'desc').limit(5).get(),
+      db.collection('schedulerRuns').orderBy('startedAt', 'desc').limit(5).get(),
+      db.collection('notificationHistory').where('provider', '==', 'telegram').where('status', '==', 'sent').count().get(),
     ]);
 
     let schedulerStatus: { activeCronJobs: Array<{ name: string; expression: string }> } = { activeCronJobs: [] };
@@ -53,27 +41,29 @@ router.get('/', async (_req: Request, res: Response): Promise<void> => {
       schedulerStatus = { activeCronJobs: Scheduler.getInstance().listJobs() };
     } catch { /* scheduler may not be initialized yet */ }
 
+    type RunData = { id: string; name?: string; status?: string; startedAt?: any; finishedAt?: any; };
+    const schedulerRuns = schedulerRunsSnap.docs.map(d => ({ id: d.id, ...d.data() } as RunData));
     const lastRun  = schedulerRuns[0] ?? null;
-    const nextRunMs = lastRun ? (new Date(lastRun.startedAt).getTime() + 24 * 60 * 60 * 1000) : null;
+    const nextRunMs = lastRun ? (new Date(lastRun.startedAt?.toDate?.() ?? lastRun.startedAt).getTime() + 24 * 60 * 60 * 1000) : null;
 
     res.json(ok({
       stats: {
-        profileCount,
-        totalPosts,
-        totalReports,
-        postsToday,
-        reelsToday,
-        telegramSent: telegramNotifs,
+        profileCount:  profileSnap.data().count,
+        totalPosts:    postSnap.data().count,
+        totalReports:  reportSnap.data().count,
+        postsToday:    postsTodaySnap.data().count,
+        reelsToday:    reelsTodaySnap.data().count,
+        telegramSent:  telegramNotifsSnap.data().count,
       },
       scheduler: {
-        isRunning:    schedulerStatus.activeCronJobs.length > 0,
-        lastRun:      lastRun?.startedAt ?? null,
-        lastRunStatus: lastRun?.status ?? null,
-        nextRun:      nextRunMs ? new Date(nextRunMs).toISOString() : null,
+        isRunning:     schedulerStatus.activeCronJobs.length > 0,
+        lastRun:       (lastRun as any)?.startedAt ?? null,
+        lastRunStatus: (lastRun as any)?.status ?? null,
+        nextRun:       nextRunMs ? new Date(nextRunMs).toISOString() : null,
         activeCronJobs: schedulerStatus.activeCronJobs,
       },
-      recentPosts,
-      recentReports,
+      recentPosts:         recentPostsSnap.docs.map(d => ({ id: d.id, ...d.data() })),
+      recentReports:       recentReportsSnap.docs.map(d => ({ id: d.id, ...d.data() })),
       recentSchedulerRuns: schedulerRuns,
     }));
   } catch (err) {

@@ -1,6 +1,6 @@
 // src/routes/logs.routes.ts
 import { Router, Request, Response } from 'express';
-import prisma from '../prisma';
+import { db } from '../firebase';
 import { ok, fail } from '../types';
 import logger from '../logger';
 
@@ -12,11 +12,13 @@ router.get('/', async (req: Request, res: Response) => {
     const level = req.query['level'] as string | undefined;
     const limit = Math.min(parseInt(String(req.query['limit'] ?? '100'), 10), 500);
 
-    const logs = await prisma.log.findMany({
-      where:   level ? { level } : {},
-      orderBy: { createdAt: 'desc' },
-      take:    limit,
-    });
+    let query: FirebaseFirestore.Query = db.collection('logs').orderBy('createdAt', 'desc').limit(limit);
+    if (level) {
+      query = db.collection('logs').where('level', '==', level).orderBy('createdAt', 'desc').limit(limit);
+    }
+
+    const snap = await query.get();
+    const logs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     res.json(ok(logs));
   } catch (err) {
     logger.error('GET /logs', { error: err });

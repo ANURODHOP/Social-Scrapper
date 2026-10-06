@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Dashboard summary endpoint — aggregates stats from all repositories.
 const express_1 = require("express");
 const types_1 = require("../types");
-const prisma_1 = __importDefault(require("../prisma"));
+const firebase_1 = require("../firebase");
 const scheduler_1 = require("../scheduler");
 const logger_1 = __importDefault(require("../logger"));
 const router = (0, express_1.Router)();
@@ -16,44 +16,33 @@ router.get('/', async (_req, res) => {
     try {
         const now = new Date();
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const [profileCount, totalPosts, totalReports, postsToday, reelsToday, recentPosts, recentReports, schedulerRuns, telegramNotifs,] = await Promise.all([
-            prisma_1.default.profile.count({ where: { deletedAt: null, isActive: true } }),
-            prisma_1.default.post.count({ where: { deletedAt: null } }),
-            prisma_1.default.report.count({ where: { deletedAt: null } }),
-            prisma_1.default.post.count({ where: { deletedAt: null, createdAt: { gte: today } } }),
-            prisma_1.default.post.count({ where: { deletedAt: null, createdAt: { gte: today }, mediaType: { in: ['VIDEO', 'REEL'] } } }),
-            prisma_1.default.post.findMany({
-                where: { deletedAt: null },
-                orderBy: { publishedAt: 'desc' },
-                take: 5,
-                include: { profile: { select: { username: true, platform: true } } },
-            }),
-            prisma_1.default.report.findMany({
-                where: { deletedAt: null },
-                orderBy: { generatedAt: 'desc' },
-                take: 5,
-            }),
-            prisma_1.default.schedulerRun.findMany({
-                orderBy: { startedAt: 'desc' },
-                take: 5,
-            }),
-            prisma_1.default.notificationHistory.count({ where: { provider: 'telegram', status: 'sent' } }),
+        const [profileSnap, postSnap, reportSnap, postsTodaySnap, reelsTodaySnap, recentPostsSnap, recentReportsSnap, schedulerRunsSnap, telegramNotifsSnap,] = await Promise.all([
+            firebase_1.db.collection('profiles').where('deletedAt', '==', null).where('isActive', '==', true).count().get(),
+            firebase_1.db.collection('posts').where('deletedAt', '==', null).count().get(),
+            firebase_1.db.collection('reports').count().get(),
+            firebase_1.db.collection('posts').where('deletedAt', '==', null).where('createdAt', '>=', today).count().get(),
+            firebase_1.db.collection('posts').where('deletedAt', '==', null).where('createdAt', '>=', today).where('mediaType', 'in', ['VIDEO', 'REEL']).count().get(),
+            firebase_1.db.collection('posts').where('deletedAt', '==', null).orderBy('publishedAt', 'desc').limit(5).get(),
+            firebase_1.db.collection('reports').orderBy('generatedAt', 'desc').limit(5).get(),
+            firebase_1.db.collection('schedulerRuns').orderBy('startedAt', 'desc').limit(5).get(),
+            firebase_1.db.collection('notificationHistory').where('provider', '==', 'telegram').where('status', '==', 'sent').count().get(),
         ]);
         let schedulerStatus = { activeCronJobs: [] };
         try {
             schedulerStatus = { activeCronJobs: scheduler_1.Scheduler.getInstance().listJobs() };
         }
         catch { /* scheduler may not be initialized yet */ }
+        const schedulerRuns = schedulerRunsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
         const lastRun = schedulerRuns[0] ?? null;
-        const nextRunMs = lastRun ? (new Date(lastRun.startedAt).getTime() + 24 * 60 * 60 * 1000) : null;
+        const nextRunMs = lastRun ? (new Date(lastRun.startedAt?.toDate?.() ?? lastRun.startedAt).getTime() + 24 * 60 * 60 * 1000) : null;
         res.json((0, types_1.ok)({
             stats: {
-                profileCount,
-                totalPosts,
-                totalReports,
-                postsToday,
-                reelsToday,
-                telegramSent: telegramNotifs,
+                profileCount: profileSnap.data().count,
+                totalPosts: postSnap.data().count,
+                totalReports: reportSnap.data().count,
+                postsToday: postsTodaySnap.data().count,
+                reelsToday: reelsTodaySnap.data().count,
+                telegramSent: telegramNotifsSnap.data().count,
             },
             scheduler: {
                 isRunning: schedulerStatus.activeCronJobs.length > 0,
@@ -62,8 +51,8 @@ router.get('/', async (_req, res) => {
                 nextRun: nextRunMs ? new Date(nextRunMs).toISOString() : null,
                 activeCronJobs: schedulerStatus.activeCronJobs,
             },
-            recentPosts,
-            recentReports,
+            recentPosts: recentPostsSnap.docs.map(d => ({ id: d.id, ...d.data() })),
+            recentReports: recentReportsSnap.docs.map(d => ({ id: d.id, ...d.data() })),
             recentSchedulerRuns: schedulerRuns,
         }));
     }

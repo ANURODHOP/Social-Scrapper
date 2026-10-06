@@ -1,19 +1,16 @@
-import { Prisma } from '@prisma/client';
+export interface ReportDoc {
+    id: string;
+    postId?: string | null;
+    profileId?: string | null;
+    type: string;
+    format: string;
+    title: string;
+    content: string;
+    filePath?: string | null;
+    generatedAt: Date;
+}
 export declare class ReportRepository {
-    create(data: Prisma.ReportUncheckedCreateInput): Promise<{
-        format: string;
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        deletedAt: Date | null;
-        profileId: string | null;
-        type: string;
-        title: string;
-        content: string;
-        filePath: string | null;
-        generatedAt: Date;
-        postId: string | null;
-    }>;
+    create(data: Omit<ReportDoc, 'id' | 'generatedAt'>): Promise<ReportDoc>;
     upsert(data: {
         postId?: string;
         profileId?: string;
@@ -22,75 +19,10 @@ export declare class ReportRepository {
         title: string;
         content: string;
         filePath?: string;
-    }): Promise<{
-        format: string;
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        deletedAt: Date | null;
-        profileId: string | null;
-        type: string;
-        title: string;
-        content: string;
-        filePath: string | null;
-        generatedAt: Date;
-        postId: string | null;
-    }>;
-    findById(id: string): Promise<{
-        format: string;
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        deletedAt: Date | null;
-        profileId: string | null;
-        type: string;
-        title: string;
-        content: string;
-        filePath: string | null;
-        generatedAt: Date;
-        postId: string | null;
-    } | null>;
-    findByPostId(postId: string): Promise<{
-        format: string;
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        deletedAt: Date | null;
-        profileId: string | null;
-        type: string;
-        title: string;
-        content: string;
-        filePath: string | null;
-        generatedAt: Date;
-        postId: string | null;
-    }[]>;
-    findByProfileId(profileId: string): Promise<{
-        format: string;
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        deletedAt: Date | null;
-        profileId: string | null;
-        type: string;
-        title: string;
-        content: string;
-        filePath: string | null;
-        generatedAt: Date;
-        postId: string | null;
-    }[]>;
-    findAll(limit?: number): Promise<{
-        format: string;
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        deletedAt: Date | null;
-        profileId: string | null;
-        type: string;
-        title: string;
-        content: string;
-        filePath: string | null;
-        generatedAt: Date;
-        postId: string | null;
-    }[]>;
+    }): Promise<ReportDoc>;
+    findById(id: string): Promise<ReportDoc | null>;
+    findByPostId(postId: string): Promise<ReportDoc[]>;
+    findByProfileId(profileId: string): Promise<ReportDoc[]>;
+    findAll(limitCount?: number): Promise<ReportDoc[]>;
 }
 //# sourceMappingURL=report.repository.d.ts.map

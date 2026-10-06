@@ -3,14 +3,14 @@
 import { ReportRepository } from '../../repositories/report.repository';
 import { PostRepository } from '../../repositories/post.repository';
 import { NotificationService } from '../notification.service';
-import { LocalStorageProvider } from '../../providers/storage/local';
+import { StorageProvider } from '../../providers/storage/base';
 import logger from '../../logger';
 
 export class DailyReportGenerator {
   constructor(
     _reportRepo: ReportRepository,
     _postRepo: PostRepository,
-    _storage: LocalStorageProvider,
+    _storage: StorageProvider,
     _notifications: NotificationService,
     _telegramChatId: string
   ) {}

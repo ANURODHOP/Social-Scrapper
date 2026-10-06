@@ -7,23 +7,22 @@
 
 import { Scheduler } from './scheduler';
 import { Config }    from '../config';
-import { ProfileRepository }    from '../repositories/profile.repository';
-import { PostRepository }       from '../repositories/post.repository';
-import { MediaRepository }      from '../repositories/media.repository';
-import { AnalysisRepository }   from '../repositories/analysis.repository';
-import { ReportRepository }     from '../repositories/report.repository';
-import { JobRepository }        from '../repositories/job.repository';
-import { PipelineWorker }       from '../workers/pipeline.worker';
-import { ScraperService }       from '../services/scraper.service';
-import { InMemoryJobQueue }     from '../jobs/InMemoryJobQueue';
-import { LocalStorageProvider } from '../providers/storage/local';
-import { FrameSamplerService }  from '../services/frame.sampler.service';
-import { ReportGenerator }      from '../services/report/ReportGenerator';
-import { NotificationService }  from '../services/notification.service';
-import { TelegramProvider }     from '../providers/notification/telegram';
-import { InstagramProvider }    from '../providers/social/instagram';
-import { InstagramHTTPClient }  from '../providers/social/instagram.http.client';
-import prisma from '../prisma';
+import { ProfileRepository }      from '../repositories/profile.repository';
+import { PostRepository }         from '../repositories/post.repository';
+import { MediaRepository }        from '../repositories/media.repository';
+import { AnalysisRepository }     from '../repositories/analysis.repository';
+import { ReportRepository }       from '../repositories/report.repository';
+import { JobRepository }          from '../repositories/job.repository';
+import { PipelineWorker }         from '../workers/pipeline.worker';
+import { ScraperService }         from '../services/scraper.service';
+import { InMemoryJobQueue }       from '../jobs/InMemoryJobQueue';
+import { FirebaseStorageProvider } from '../providers/storage/firebase';
+import { FrameSamplerService }    from '../services/frame.sampler.service';
+import { ReportGenerator }        from '../services/report/ReportGenerator';
+import { NotificationService }    from '../services/notification.service';
+import { TelegramProvider }       from '../providers/notification/telegram';
+import { InstagramProvider }      from '../providers/social/instagram';
+import { InstagramHTTPClient }    from '../providers/social/instagram.http.client';
 import logger from '../logger';
 
 export { Scheduler };
@@ -31,11 +30,10 @@ export { Scheduler };
 // ─── Shared service singletons ────────────────────────────────────────────────
 const cfg          = Config.getInstance();
 const notifCfg     = cfg.get('notifications');
-const storageCfg   = cfg.get('storage');
 const frameCfg     = cfg.get('frameSampling');
 const schedulerCfg = cfg.get('scheduler');
 
-const storage       = new LocalStorageProvider(storageCfg.local?.rootPath);
+const storage       = new FirebaseStorageProvider();
 const frameSampler  = new FrameSamplerService(frameCfg);
 const reportGenerator = new ReportGenerator();
 const telegram      = new TelegramProvider(notifCfg.telegram.botToken!, notifCfg.telegram.chatId!);
@@ -57,7 +55,7 @@ const pipelineWorker = new PipelineWorker(
 const igClient   = new InstagramHTTPClient(cfg.get('scraper').timeout);
 const igProvider = new InstagramProvider(igClient);
 const jobQueue   = new InMemoryJobQueue();
-const scraper    = new ScraperService(igProvider, storage, prisma, jobQueue);
+const scraper    = new ScraperService(igProvider, storage, profileRepo, postRepo, mediaRepo, jobQueue);
 
 export const telegramChatId = notifCfg.telegram.chatId!;
 
