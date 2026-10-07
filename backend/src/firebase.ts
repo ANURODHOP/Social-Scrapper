@@ -50,7 +50,10 @@ export function getFirebaseApp(): App {
 // They initialize Firebase only when a property is first accessed (e.g. db.collection(...)).
 export const db: Firestore = new Proxy({} as Firestore, {
   get(_target, prop) {
-    if (!_db) _db = getFirestore(getFirebaseApp());
+    if (!_db) {
+      _db = getFirestore(getFirebaseApp());
+      _db.settings({ ignoreUndefinedProperties: true });
+    }
     const val = (_db as any)[prop];
     return typeof val === 'function' ? val.bind(_db) : val;
   },

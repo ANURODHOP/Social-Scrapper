@@ -56,8 +56,9 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
     });
     res.status(201).json(ok(profile));
   } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
     logger.error('POST /profiles', { error: err });
-    res.status(500).json(fail('Failed to create profile'));
+    res.status(500).json(fail(`Failed to create profile: ${msg}`));
   }
 });
 

@@ -106,8 +106,10 @@ export default function ProfilesPage() {
             <h2 style={{ fontSize: '20px', marginBottom: '16px' }}>Add Instagram Profile</h2>
             <form onSubmit={handleAddProfile} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
-                <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>Username</label>
+                <label htmlFor="profile-username" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>Username</label>
                 <input 
+                  id="profile-username"
+                  name="username"
                   type="text" 
                   className="input-field" 
                   placeholder="e.g. fabriziorom" 
@@ -117,8 +119,10 @@ export default function ProfilesPage() {
                 />
               </div>
               <div>
-                <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>Display Name (Optional)</label>
+                <label htmlFor="profile-display-name" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>Display Name (Optional)</label>
                 <input 
+                  id="profile-display-name"
+                  name="displayName"
                   type="text" 
                   className="input-field" 
                   placeholder="e.g. Fabrizio Romano" 
