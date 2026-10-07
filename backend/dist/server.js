@@ -58,7 +58,7 @@ const dashboard_routes_1 = __importDefault(require("./routes/dashboard.routes"))
 const app = (0, express_1.default)();
 exports.app = app;
 const config = config_1.Config.getInstance();
-const PORT = config.get('port') ?? 8000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : (config.get('port') ?? 8000);
 const NODE_ENV = config.get('nodeEnv');
 app.use((0, helmet_1.default)());
 app.use((0, cors_1.default)({
@@ -197,10 +197,13 @@ app.use((err, _req, res, _next) => {
         error: NODE_ENV === 'production' ? 'Internal Server Error' : err.message,
     });
 });
-const server = app.listen(PORT, () => {
-    logger_1.default.info(`🚀 Server running on http://localhost:${PORT} [${NODE_ENV}]`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+    logger_1.default.info(`🚀 Server running on http://0.0.0.0:${PORT} [${NODE_ENV}]`);
     wireDynamicHandlers();
 });
+logger_1.default.info(`🚀 Server running on http://localhost:${PORT} [${NODE_ENV}]`);
+wireDynamicHandlers();
+;
 process.on('SIGTERM', () => {
     logger_1.default.info('SIGTERM — shutting down');
     server.close(() => { logger_1.default.info('Server closed'); process.exit(0); });

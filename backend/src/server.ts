@@ -21,7 +21,7 @@ import dashboardRouter from './routes/dashboard.routes';
 
 const app      = express();
 const config   = Config.getInstance();
-const PORT     = config.get('port') ?? 8000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : (config.get('port') ?? 8000);
 const NODE_ENV = config.get('nodeEnv');
 
 app.use(helmet());
@@ -185,10 +185,11 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   });
 });
 
-const server = app.listen(PORT, () => {
-  logger.info(`🚀 Server running on http://localhost:${PORT} [${NODE_ENV}]`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+  logger.info(`🚀 Server running on http://0.0.0.0:${PORT} [${NODE_ENV}]`);
   wireDynamicHandlers();
 });
+
 
 process.on('SIGTERM', () => {
   logger.info('SIGTERM — shutting down');

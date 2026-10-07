@@ -1,1 +1,0 @@
-{"error":{"clientVersion":"5.22.0","code":"P2002","meta":{"modelName":"Profile","target":["platform","platformId"]},"name":"PrismaClientKnownRequestError"},"level":"error","message":"POST /profiles","service":"social-intelligence-platform","timestamp":"2026-08-27T03:46:11.029Z"}
