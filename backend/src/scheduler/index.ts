@@ -1,66 +1,49 @@
 // src/scheduler/index.ts
-// Full scheduler bootstrap with:
-//  - Configurable concurrency (default: 2 simultaneous profiles)
-//  - Active-profile Set to prevent duplicate simultaneous runs
-//  - Job history persisted to DB (SchedulerRun) on every execution
-//  - Scrape + pipeline cascade for each monitored profile
+// Full scheduler bootstrap.
+// IMPORTANT: All service singletons are created lazily inside initScheduler()
+// so that importing this module (e.g. from scheduler.routes.ts) does NOT
+// instantiate Playwright, Telegram, or any heavy dependency at module-load time.
+// This allows the Express server to boot on serverless environments (Vercel)
+// where browser binaries are unavailable.
 
 import { Scheduler } from './scheduler';
 import { Config }    from '../config';
-import { ProfileRepository }      from '../repositories/profile.repository';
-import { PostRepository }         from '../repositories/post.repository';
-import { MediaRepository }        from '../repositories/media.repository';
-import { AnalysisRepository }     from '../repositories/analysis.repository';
-import { ReportRepository }       from '../repositories/report.repository';
-import { JobRepository }          from '../repositories/job.repository';
-import { PipelineWorker }         from '../workers/pipeline.worker';
-import { ScraperService }         from '../services/scraper.service';
-import { InMemoryJobQueue }       from '../jobs/InMemoryJobQueue';
-import { FirebaseStorageProvider } from '../providers/storage/firebase';
-import { FrameSamplerService }    from '../services/frame.sampler.service';
-import { ReportGenerator }        from '../services/report/ReportGenerator';
-import { NotificationService }    from '../services/notification.service';
-import { TelegramProvider }       from '../providers/notification/telegram';
-import { InstagramProvider }      from '../providers/social/instagram';
-import { InstagramHTTPClient }    from '../providers/social/instagram.http.client';
 import logger from '../logger';
 
 export { Scheduler };
 
-// ─── Shared service singletons ────────────────────────────────────────────────
-const cfg          = Config.getInstance();
-const notifCfg     = cfg.get('notifications');
-const frameCfg     = cfg.get('frameSampling');
-const schedulerCfg = cfg.get('scheduler');
+// ─── Lazy singletons (populated once by initScheduler / wireDynamicHandlers) ──
+let _pipelineWorker:  any = null;
+let _profileRepo:     any = null;
+let _postRepo:        any = null;
+let _notifications:   any = null;
+let _reportRepo:      any = null;
+let _scraper:         any = null;
+let _telegram:        any = null;
+let _telegramChatId:  string = '';
 
-const storage       = new FirebaseStorageProvider();
-const frameSampler  = new FrameSamplerService(frameCfg);
-const reportGenerator = new ReportGenerator();
-const telegram      = new TelegramProvider(notifCfg.telegram.botToken!, notifCfg.telegram.chatId!);
-const notifications = new NotificationService(telegram);
+export function getPipelineWorker() { return _pipelineWorker; }
+export function getProfileRepo()    { return _profileRepo; }
+export function getPostRepo()       { return _postRepo; }
+export function getNotifications()  { return _notifications; }
+export function getReportRepo()     { return _reportRepo; }
+export function getScraper()        { return _scraper; }
+export function getTelegram()       { return _telegram; }
+export function getTelegramChatId() { return _telegramChatId; }
 
-const profileRepo  = new ProfileRepository();
-const postRepo     = new PostRepository();
-const mediaRepo    = new MediaRepository();
-const analysisRepo = new AnalysisRepository();
-const reportRepo   = new ReportRepository();
-const jobRepo      = new JobRepository();
+// Named exports expected by server.ts wireDynamicHandlers (populated after init)
+export let pipelineWorker: any  = null;
+export let profileRepo:    any  = null;
+export let postRepo:       any  = null;
+export let notifications:  any  = null;
+export let reportRepo:     any  = null;
+export let scraper:        any  = null;
+export let telegram:       any  = null;
+export let telegramChatId: string = '';
 
-const pipelineWorker = new PipelineWorker(
-  storage, frameSampler, reportGenerator, notifications,
-  postRepo, mediaRepo, analysisRepo, reportRepo, profileRepo,
-  notifCfg.telegram.chatId!
-);
-
-const igClient   = new InstagramHTTPClient(cfg.get('scraper').timeout);
-const igProvider = new InstagramProvider(igClient);
-const jobQueue   = new InMemoryJobQueue();
-const scraper    = new ScraperService(igProvider, storage, profileRepo, postRepo, mediaRepo, jobQueue);
-
-export const telegramChatId = notifCfg.telegram.chatId!;
+let _initialized = false;
 
 // ─── Concurrency control ──────────────────────────────────────────────────────
-const CONCURRENCY    = schedulerCfg.concurrency ?? 2;
 const activeProfiles = new Set<string>();
 
 async function processProfile(profileId: string): Promise<void> {
@@ -69,37 +52,36 @@ async function processProfile(profileId: string): Promise<void> {
     return;
   }
   activeProfiles.add(profileId);
-  const run = await jobRepo.createSchedulerRun(`process-profile:${profileId}`);
+  const jobRepo: any = (global as any).__schedulerJobRepo;
+  const runRecord = await jobRepo.createSchedulerRun(`process-profile:${profileId}`);
 
   try {
-    await scraper.scrapeProfile(profileId);
+    await _scraper.scrapeProfile(profileId);
 
-    const unprocessed = await postRepo.getUnprocessedPosts(profileId);
+    const unprocessed = await _postRepo.getUnprocessedPosts(profileId);
     logger.info(`Scheduler[${profileId}]: ${unprocessed.length} unprocessed post(s)`);
     for (const post of unprocessed) {
       try {
-        await pipelineWorker.processPost(post.id);
+        await _pipelineWorker.processPost(post.id);
       } catch (err) {
         logger.error(`Scheduler: failed to process post ${post.id}`, { error: err });
-        // The daily report should continue even if one post fails.
       }
     }
 
-    await jobRepo.finishSchedulerRun(run.id, 'completed');
+    await jobRepo.finishSchedulerRun(runRecord.id, 'completed');
   } catch (err) {
-    await jobRepo.finishSchedulerRun(run.id, 'failed');
+    await jobRepo.finishSchedulerRun(runRecord.id, 'failed');
     logger.error(`Scheduler: profile ${profileId} failed`, { error: err });
   } finally {
     activeProfiles.delete(profileId);
   }
 }
 
-/**
- * Run the full scan across all monitored profiles, respecting concurrency.
- * Called both by the cron job and by POST /api/scheduler/run.
- */
 export async function runProfileScan(): Promise<{ processed: number; skipped: number }> {
-  const profiles = await profileRepo.findAllMonitored();
+  if (!_initialized) throw new Error('Scheduler not initialized');
+  const profiles = await _profileRepo.findAllMonitored();
+  const cfg = Config.getInstance();
+  const CONCURRENCY = cfg.get('scheduler').concurrency ?? 2;
   logger.info(`Scheduler[scan]: ${profiles.length} profile(s), concurrency=${CONCURRENCY}`);
 
   let processed = 0;
@@ -120,10 +102,47 @@ export async function runProfileScan(): Promise<{ processed: number; skipped: nu
   return { processed, skipped };
 }
 
-// ─── Scheduler bootstrap ──────────────────────────────────────────────────────
-export function initScheduler(): void {
-  const scheduler = Scheduler.getInstance();
-  const cron      = schedulerCfg.profiles.scrapeIntervalCron;
+/**
+ * initScheduler — called ONCE from server.ts wireDynamicHandlers()
+ * after all heavy dependencies have been dynamically imported.
+ * Receives all pre-built singletons so this file never imports them statically.
+ */
+export function initScheduler(deps: {
+  pipelineWorker:  any;
+  profileRepo:     any;
+  postRepo:        any;
+  notifications:   any;
+  reportRepo:      any;
+  scraper:         any;
+  telegram:        any;
+  jobRepo:         any;
+  telegramChatId:  string;
+}): void {
+  if (_initialized) {
+    logger.warn('initScheduler: already initialized, skipping');
+    return;
+  }
+
+  // Populate module-level exports so server.ts destructuring still works
+  _pipelineWorker = pipelineWorker = deps.pipelineWorker;
+  _profileRepo    = profileRepo    = deps.profileRepo;
+  _postRepo       = postRepo       = deps.postRepo;
+  _notifications  = notifications  = deps.notifications;
+  _reportRepo     = reportRepo     = deps.reportRepo;
+  _scraper        = scraper        = deps.scraper;
+  _telegram       = telegram       = deps.telegram;
+  _telegramChatId = telegramChatId = deps.telegramChatId;
+
+  // Store jobRepo in global for processProfile helper
+  (global as any).__schedulerJobRepo = deps.jobRepo;
+
+  _initialized = true;
+
+  const cfg           = Config.getInstance();
+  const schedulerCfg  = cfg.get('scheduler');
+  const cron          = schedulerCfg.profiles.scrapeIntervalCron;
+  const CONCURRENCY   = schedulerCfg.concurrency ?? 2;
+  const scheduler     = Scheduler.getInstance();
 
   scheduler.schedule('scrape-profiles', cron, async () => {
     const { processed, skipped } = await runProfileScan();
@@ -136,6 +155,3 @@ export function initScheduler(): void {
 
   logger.info(`Scheduler: ${scheduler.listJobs().length} job(s) registered [cron=${cron} concurrency=${CONCURRENCY}]`);
 }
-
-// Export singletons required by server.ts
-export { pipelineWorker, profileRepo, postRepo, notifications, reportRepo, scraper, telegram };

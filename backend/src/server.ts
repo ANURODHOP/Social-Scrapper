@@ -104,26 +104,66 @@ app.use('/api/logs',      logsRouter);
 function wireDynamicHandlers(): void {
   setImmediate(async () => {
     try {
-      const {
-        initScheduler,
-        runProfileScan,
-        pipelineWorker,
-        profileRepo,
-        postRepo,
-        notifications,
-        reportRepo,
-        telegramChatId,
-        scraper,
-        telegram
-      } = await import('./scheduler');
+      // ── Dynamic imports of heavy modules (Playwright, etc.) ─────────────────
+      // These are deliberately NOT static imports so the Express app can boot
+      // cleanly even on serverless environments where these may not be available.
+      const { initScheduler, runProfileScan, Scheduler: _Sched } = await import('./scheduler');
+      const { ProfileRepository }      = await import('./repositories/profile.repository');
+      const { PostRepository }         = await import('./repositories/post.repository');
+      const { MediaRepository }        = await import('./repositories/media.repository');
+      const { AnalysisRepository }     = await import('./repositories/analysis.repository');
+      const { ReportRepository }       = await import('./repositories/report.repository');
+      const { JobRepository }          = await import('./repositories/job.repository');
+      const { PipelineWorker }         = await import('./workers/pipeline.worker');
+      const { ScraperService }         = await import('./services/scraper.service');
+      const { InMemoryJobQueue }       = await import('./jobs/InMemoryJobQueue');
+      const { FirebaseStorageProvider } = await import('./providers/storage/firebase');
+      const { FrameSamplerService }    = await import('./services/frame.sampler.service');
+      const { ReportGenerator }        = await import('./services/report/ReportGenerator');
+      const { NotificationService }    = await import('./services/notification.service');
+      const { TelegramProvider }       = await import('./providers/notification/telegram');
+      const { InstagramProvider }      = await import('./providers/social/instagram');
+      const { InstagramHTTPClient }    = await import('./providers/social/instagram.http.client');
 
-      // Health check Telegram
+      // ── Build service singletons ─────────────────────────────────────────────
+      const cfg           = config;
+      const notifCfg      = cfg.get('notifications');
+      const frameCfg      = cfg.get('frameSampling');
+
+      const storage         = new FirebaseStorageProvider();
+      const frameSampler    = new FrameSamplerService(frameCfg);
+      const reportGenerator = new ReportGenerator();
+      const telegram        = new TelegramProvider(notifCfg.telegram.botToken!, notifCfg.telegram.chatId!);
+      const notifications   = new NotificationService(telegram);
+      const telegramChatId  = notifCfg.telegram.chatId!;
+
+      const profileRepo  = new ProfileRepository();
+      const postRepo     = new PostRepository();
+      const mediaRepo    = new MediaRepository();
+      const analysisRepo = new AnalysisRepository();
+      const reportRepo   = new ReportRepository();
+      const jobRepo      = new JobRepository();
+
+      const pipelineWorker = new PipelineWorker(
+        storage, frameSampler, reportGenerator, notifications,
+        postRepo, mediaRepo, analysisRepo, reportRepo, profileRepo,
+        telegramChatId
+      );
+
+      const scraperTimeout = cfg.get('scraper').timeout;
+      const igClient   = new InstagramHTTPClient(scraperTimeout);
+      const igProvider = new InstagramProvider(igClient);
+      const jobQueue   = new InMemoryJobQueue();
+      const scraper    = new ScraperService(igProvider, storage, profileRepo, postRepo, mediaRepo, jobQueue);
+
+      // ── Health check Telegram ────────────────────────────────────────────────
       try {
         await telegram.checkHealth();
       } catch (err) {
         logger.error('Telegram health check failed during startup', { error: err });
       }
 
+      // ── Wire route dynamic handlers ──────────────────────────────────────────
       schedulerHandlers.runProfileScan = async () => {
         logger.info('POST /scheduler/run: manual trigger via wired handler');
         return runProfileScan();
@@ -147,16 +187,13 @@ function wireDynamicHandlers(): void {
         return { profileId, results };
       };
 
-      // Wired scan handler: scrape then process
       profilesHandlers.scanProfile = async (profileId: string) => {
         const profile = await profileRepo.findById(profileId);
         if (!profile) throw new Error('Profile not found');
         logger.info(`Manual scan: profile ${profileId} (${profile.username})`);
 
-        // Step 1: scrape new posts
         await scraper.scrapeProfile(profileId);
 
-        // Step 2: process all unprocessed posts
         const unprocessed = await postRepo.getUnprocessedPosts(profileId);
         const results: Array<{ postId: string; ok: boolean; error?: string }> = [];
         for (const post of unprocessed) {
@@ -173,10 +210,9 @@ function wireDynamicHandlers(): void {
       reportsHandlers.sendReport = async (reportId: string) => {
         const report = await reportRepo.findById(reportId);
         if (!report) throw new Error('Report not found');
-        
+
         let documentPath: string | undefined;
         if (report.filePath) {
-          // Cloud storage: filePath is an https:// URL — we can't read it as a local file
           const isCloudUrl = report.filePath.startsWith('http://') || report.filePath.startsWith('https://');
           if (!isCloudUrl) {
             const pathMod = await import('path');
@@ -185,7 +221,6 @@ function wireDynamicHandlers(): void {
             const fsMod = await import('fs');
             if (fsMod.existsSync(candidatePath)) documentPath = candidatePath;
           }
-          // For cloud URLs, Telegram will receive markdown text only (no attachment).
         }
 
         const { latencyMs } = await notifications.sendReportToTelegram({
@@ -198,10 +233,15 @@ function wireDynamicHandlers(): void {
         return { sent: true, latencyMs };
       };
 
-      initScheduler();
+      // ── Start scheduler (injects all deps, no top-level instantiation) ───────
+      initScheduler({
+        pipelineWorker, profileRepo, postRepo, notifications,
+        reportRepo, scraper, telegram, jobRepo, telegramChatId,
+      });
+
       logger.info('✅ Dynamic handlers wired. Scheduler started.');
     } catch (err) {
-      logger.error('wireDynamicHandlers: failed — pipeline endpoints will return 501', { error: err });
+      logger.error('wireDynamicHandlers: failed — pipeline endpoints will return 503', { error: err });
     }
   });
 }

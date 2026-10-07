@@ -1,28 +1,39 @@
 import { Scheduler } from './scheduler';
-import { ProfileRepository } from '../repositories/profile.repository';
-import { PostRepository } from '../repositories/post.repository';
-import { ReportRepository } from '../repositories/report.repository';
-import { PipelineWorker } from '../workers/pipeline.worker';
-import { ScraperService } from '../services/scraper.service';
-import { NotificationService } from '../services/notification.service';
-import { TelegramProvider } from '../providers/notification/telegram';
 export { Scheduler };
-declare const telegram: TelegramProvider;
-declare const notifications: NotificationService;
-declare const profileRepo: ProfileRepository;
-declare const postRepo: PostRepository;
-declare const reportRepo: ReportRepository;
-declare const pipelineWorker: PipelineWorker;
-declare const scraper: ScraperService;
-export declare const telegramChatId: string;
-/**
- * Run the full scan across all monitored profiles, respecting concurrency.
- * Called both by the cron job and by POST /api/scheduler/run.
- */
+export declare function getPipelineWorker(): any;
+export declare function getProfileRepo(): any;
+export declare function getPostRepo(): any;
+export declare function getNotifications(): any;
+export declare function getReportRepo(): any;
+export declare function getScraper(): any;
+export declare function getTelegram(): any;
+export declare function getTelegramChatId(): string;
+export declare let pipelineWorker: any;
+export declare let profileRepo: any;
+export declare let postRepo: any;
+export declare let notifications: any;
+export declare let reportRepo: any;
+export declare let scraper: any;
+export declare let telegram: any;
+export declare let telegramChatId: string;
 export declare function runProfileScan(): Promise<{
     processed: number;
     skipped: number;
 }>;
-export declare function initScheduler(): void;
-export { pipelineWorker, profileRepo, postRepo, notifications, reportRepo, scraper, telegram };
+/**
+ * initScheduler — called ONCE from server.ts wireDynamicHandlers()
+ * after all heavy dependencies have been dynamically imported.
+ * Receives all pre-built singletons so this file never imports them statically.
+ */
+export declare function initScheduler(deps: {
+    pipelineWorker: any;
+    profileRepo: any;
+    postRepo: any;
+    notifications: any;
+    reportRepo: any;
+    scraper: any;
+    telegram: any;
+    jobRepo: any;
+    telegramChatId: string;
+}): void;
 //# sourceMappingURL=index.d.ts.map
