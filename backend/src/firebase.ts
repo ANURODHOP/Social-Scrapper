@@ -1,22 +1,25 @@
 // src/firebase.ts
-// Firebase Admin SDK singleton.
-// Prevents multiple app initializations during ts-node-dev hot reloads.
-// Reads credentials directly from environment variables — no JSON file needed.
+// Firebase Admin SDK singleton — LAZY initialization.
+// Does NOT run any code at module-load time.
+// Call getFirebaseApp(), db, storage, bucket to access Firebase —
+// initialization happens on first access, so a module import never
+// crashes the serverless function if env vars are missing.
 
 import { initializeApp, cert, getApps, getApp, App } from 'firebase-admin/app';
 import { getFirestore, Firestore, FieldValue } from 'firebase-admin/firestore';
 import { getStorage, Storage } from 'firebase-admin/storage';
 
-declare global {
-  // eslint-disable-next-line no-var
-  var __firebaseApp: App | undefined;
-}
-
 function createFirebaseApp(): App {
-  const projectId   = process.env['FIREBASE_PROJECT_ID'];
-  const clientEmail = process.env['FIREBASE_CLIENT_EMAIL'];
-  // dotenv stores \n as literal \\n — we must restore real newlines
-  const privateKey  = (process.env['FIREBASE_PRIVATE_KEY'] ?? '').replace(/\\n/g, '\n');
+  // Return existing app if already initialized (handles hot reloads + serverless re-use)
+  if (getApps().length > 0) {
+    return getApp();
+  }
+
+  const projectId     = process.env['FIREBASE_PROJECT_ID'];
+  const clientEmail   = process.env['FIREBASE_CLIENT_EMAIL'];
+  // Both dotenv and Vercel env vars can store \n as the two-char sequence \\n
+  const rawKey        = process.env['FIREBASE_PRIVATE_KEY'] ?? '';
+  const privateKey    = rawKey.replace(/\\n/g, '\n');
   const storageBucket = process.env['FIREBASE_STORAGE_BUCKET'];
 
   if (!projectId || !clientEmail || !privateKey || !storageBucket) {
@@ -26,24 +29,55 @@ function createFirebaseApp(): App {
     );
   }
 
-  if (getApps().length > 0) {
-    return getApp();
-  }
-
   return initializeApp({
     credential: cert({ projectId, clientEmail, privateKey }),
     storageBucket,
   });
 }
 
-const app: App =
-  process.env['NODE_ENV'] === 'production'
-    ? createFirebaseApp()
-    : (globalThis.__firebaseApp ??= createFirebaseApp());
+// ── Lazy singletons ───────────────────────────────────────────────────────────
+let _app: App | null = null;
+let _db: Firestore | null = null;
+let _storage: Storage | null = null;
 
-export const db: Firestore = getFirestore(app);
-export const storage: Storage = getStorage(app);
-export const bucket = storage.bucket();
+export function getFirebaseApp(): App {
+  if (!_app) _app = createFirebaseApp();
+  return _app;
+}
+
+// db, storage, bucket are exported as lazy Proxy objects so all existing imports
+// like `import { db } from '../firebase'` continue to work without changes.
+// They initialize Firebase only when a property is first accessed (e.g. db.collection(...)).
+export const db: Firestore = new Proxy({} as Firestore, {
+  get(_target, prop) {
+    if (!_db) _db = getFirestore(getFirebaseApp());
+    const val = (_db as any)[prop];
+    return typeof val === 'function' ? val.bind(_db) : val;
+  },
+});
+
+export const storage: Storage = new Proxy({} as Storage, {
+  get(_target, prop) {
+    if (!_storage) _storage = getStorage(getFirebaseApp());
+    const val = (_storage as any)[prop];
+    return typeof val === 'function' ? val.bind(_storage) : val;
+  },
+});
+
+export const bucket = new Proxy({} as ReturnType<Storage['bucket']>, {
+  get(_target, prop) {
+    if (!_storage) _storage = getStorage(getFirebaseApp());
+    const b = _storage.bucket();
+    const val = (b as any)[prop];
+    return typeof val === 'function' ? val.bind(b) : val;
+  },
+});
 
 export { FieldValue };
-export default app;
+export default new Proxy({} as App, {
+  get(_target, prop) {
+    const a = getFirebaseApp();
+    const val = (a as any)[prop];
+    return typeof val === 'function' ? val.bind(a) : val;
+  },
+});
