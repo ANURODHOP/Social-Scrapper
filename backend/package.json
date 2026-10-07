@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --env-file .env src/server.ts",
     "build": "tsc && npm run copy-config",
+    "vercel-build": "tsc && npm run copy-config",
     "copy-config": "copyfiles -u 2 src/config/**/*.yaml dist/config",
     "start": "node dist/server.js",
     "type-check": "tsc --noEmit",
