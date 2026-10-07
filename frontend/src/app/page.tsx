@@ -33,11 +33,11 @@ export default function DashboardPage() {
         </div>
         <div className="stat-card">
           <div style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '8px' }}>New Posts Today</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: 'var(--accent-blue)' }}>{data.stats.postsToday}</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: 'var(--accent-text)' }}>{data.stats.postsToday}</div>
         </div>
         <div className="stat-card">
           <div style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '8px' }}>New Reels Today</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: 'var(--accent-purple)' }}>{data.stats.reelsToday}</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: 'var(--sky)' }}>{data.stats.reelsToday}</div>
         </div>
         <div className="stat-card">
           <div style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '8px' }}>Reports Generated</div>
@@ -80,7 +80,7 @@ export default function DashboardPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span style={{ color: 'var(--text-secondary)' }}>Status</span>
               {data.telegramSent >= 0 ? (
-                <span className="badge-blue">Connected</span>
+                <span className="badge-green">Connected</span>
               ) : (
                 <span className="badge-amber">Not Configured</span>
               )}

@@ -1,0 +1,103 @@
+# This is the default configuration for the application.
+# Environment-specific configurations will override these values.
+# Environment variables can also override any of these values.
+
+nodeEnv: development
+port: 8000
+
+database:
+  url: "file:./dev.db"
+
+storage:
+  provider: local
+  local:
+    rootPath: "./storage"
+
+scheduler:
+  profiles:
+    scrapeIntervalCron: "0 * * * *"   # Every hour
+  concurrency: 2
+
+scraper:
+  rateLimits:
+    instagram:
+      requestsPerHour: 100
+      requestsPerDay: 1500
+  timeout: 30        # seconds
+  retryAttempts: 3
+
+ai:
+  default: nvidia
+  nvidia:
+    apiKey: null
+    endpoint: "https://integrate.api.nvidia.com/v1"
+    model: "meta/llama-3.1-70b-instruct"
+  gemini:
+    apiKey: null
+    model: "gemini-1.5-pro"
+  openai:
+    apiKey: null
+    model: "gpt-4o"
+  claude:
+    apiKey: null
+    model: "claude-3-5-sonnet-20241022"
+  ollama:
+    baseUrl: "http://localhost:11434"
+    model: "llama3"
+  openrouter:
+    apiKey: null
+    model: null
+
+notifications:
+  telegram:
+    botToken: null
+    chatId: null
+  discord:
+    webhookUrl: null
+  whatsapp:
+    accessToken: null
+    phoneNumberId: null
+  slack:
+    webhookUrl: null
+  email:
+    smtpHost: null
+    smtpPort: 587
+    smtpUser: null
+    smtpPass: null
+    from: null
+
+logging:
+  level: info
+  logsDir: "./logs"
+  maxSize: "20m"
+  maxFiles: 14
+
+reports:
+  outputDir: "./reports"
+  templatesDir: "./src/reports/templates"
+
+paths:
+  storageRoot: "./storage"
+  tempDir: "./temp"
+  logsDir: "./logs"
+
+timeouts:
+  scraper: 30          # seconds
+  mediaDownload: 60    # seconds
+  mediaProcessing: 120 # seconds
+  aiAnalysis: 60       # seconds
+  reportGeneration: 30 # seconds
+
+retryPolicy:
+  maxAttempts: 3
+  baseDelay: 1         # second
+  maxDelay: 60         # seconds
+  factor: 2            # exponential backoff factor
+
+frameSampling:
+  shortThreshold: 15
+  mediumThreshold: 45
+  shortInterval: 1
+  mediumInterval: 2
+  longInterval: 5
+  maxFrames: 12

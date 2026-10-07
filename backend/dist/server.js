@@ -201,9 +201,6 @@ const server = app.listen(PORT, '0.0.0.0', () => {
     logger_1.default.info(`🚀 Server running on http://0.0.0.0:${PORT} [${NODE_ENV}]`);
     wireDynamicHandlers();
 });
-logger_1.default.info(`🚀 Server running on http://localhost:${PORT} [${NODE_ENV}]`);
-wireDynamicHandlers();
-;
 process.on('SIGTERM', () => {
     logger_1.default.info('SIGTERM — shutting down');
     server.close(() => { logger_1.default.info('Server closed'); process.exit(0); });

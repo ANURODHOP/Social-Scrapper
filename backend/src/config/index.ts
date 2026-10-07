@@ -3,7 +3,8 @@
 // Priority (highest to lowest):
 //   1. Environment variables
 //   2. Environment-specific YAML (e.g., development.yaml, production.yaml)
-//   3. Default YAML (default.yaml)
+//   3. Default YAML (default.yaml, if present)
+//   4. Hardcoded defaults (always available, even in production dist builds)
 //
 // NOTE: dotenv must be loaded BEFORE this module is imported.
 // Ensure `import 'dotenv/config'` is the first line of server.ts.
@@ -12,6 +13,44 @@ import yaml from 'js-yaml';
 import fs from 'fs';
 import path from 'path';
 import { AppConfig } from './schema';
+
+/** Hardcoded defaults — mirrors src/config/default.yaml exactly.
+ *  This ensures the config system works even when the YAML is not
+ *  present in the dist folder (e.g. Vercel / Docker deployments). */
+const HARDCODED_DEFAULTS: Record<string, unknown> = {
+  nodeEnv: 'development',
+  port: 8000,
+  database: { url: 'file:./dev.db' },
+  storage: { provider: 'local', local: { rootPath: './storage' } },
+  scheduler: { profiles: { scrapeIntervalCron: '0 * * * *' }, concurrency: 2 },
+  scraper: {
+    rateLimits: { instagram: { requestsPerHour: 100, requestsPerDay: 1500 } },
+    timeout: 30,
+    retryAttempts: 3,
+  },
+  ai: {
+    default: 'nvidia',
+    nvidia:     { apiKey: null, endpoint: 'https://integrate.api.nvidia.com/v1', model: 'meta/llama-3.1-70b-instruct' },
+    gemini:     { apiKey: null, model: 'gemini-1.5-pro' },
+    openai:     { apiKey: null, model: 'gpt-4o' },
+    claude:     { apiKey: null, model: 'claude-3-5-sonnet-20241022' },
+    ollama:     { baseUrl: 'http://localhost:11434', model: 'llama3' },
+    openrouter: { apiKey: null, model: null },
+  },
+  notifications: {
+    telegram:  { botToken: null, chatId: null },
+    discord:   { webhookUrl: null },
+    whatsapp:  { accessToken: null, phoneNumberId: null },
+    slack:     { webhookUrl: null },
+    email:     { smtpHost: null, smtpPort: 587, smtpUser: null, smtpPass: null, from: null },
+  },
+  logging:  { level: 'info', logsDir: './logs', maxSize: '20m', maxFiles: 14 },
+  reports:  { outputDir: './reports', templatesDir: './src/reports/templates' },
+  paths:    { storageRoot: './storage', tempDir: './temp', logsDir: './logs' },
+  timeouts: { scraper: 30, mediaDownload: 60, mediaProcessing: 120, aiAnalysis: 60, reportGeneration: 30 },
+  retryPolicy:    { maxAttempts: 3, baseDelay: 1, maxDelay: 60, factor: 2 },
+  frameSampling:  { shortThreshold: 15, mediumThreshold: 45, shortInterval: 1, mediumInterval: 2, longInterval: 5, maxFrames: 12 },
+};
 
 export class Config {
   private static instance: Config;
@@ -33,11 +72,21 @@ export class Config {
   }
 
   private loadConfig(): AppConfig {
-    // __dirname resolves correctly both in ts-node (src/config/) and after tsc (dist/config/)
+    // Start from hardcoded defaults so production always has a full config.
+    let config = this.deepMerge({}, HARDCODED_DEFAULTS);
+
+    // Try to overlay with the YAML file (works in local dev and when copied correctly).
+    // __dirname resolves to src/config/ (ts-node) or dist/config/ (compiled).
     const configDir = __dirname;
+    const defaultYamlPath = path.join(configDir, 'default.yaml');
+    if (fs.existsSync(defaultYamlPath)) {
+      const yamlConfig = this.loadYamlFile(defaultYamlPath);
+      config = this.deepMerge(config, yamlConfig);
+    } else {
+      console.info(`Config: default.yaml not found at ${defaultYamlPath} — using hardcoded defaults.`);
+    }
 
-    let config = this.loadYamlFile(path.join(configDir, 'default.yaml'));
-
+    // Overlay with environment-specific YAML if present.
     const env = process.env['NODE_ENV'] ?? 'development';
     const envConfigPath = path.join(configDir, `${env}.yaml`);
     if (fs.existsSync(envConfigPath)) {
@@ -45,6 +94,7 @@ export class Config {
       config = this.deepMerge(config, envConfig);
     }
 
+    // Final override: environment variables take highest priority.
     config = this.overrideWithEnv(config);
     return config as unknown as AppConfig;
   }
@@ -55,7 +105,6 @@ export class Config {
       const parsed = yaml.load(fileContents);
       return (parsed && typeof parsed === 'object' ? parsed : {}) as Record<string, unknown>;
     } catch (error) {
-      // During first run, the file may not yet exist
       console.warn(`Config: could not load ${filePath}:`, (error as Error).message);
       return {};
     }
@@ -96,10 +145,12 @@ export class Config {
     if (process.env['NODE_ENV']) c.nodeEnv = process.env['NODE_ENV'];
 
     // AI Providers
+    if (process.env['NVIDIA_API_KEY'])   { c.ai ??= {}; c.ai.nvidia ??= {}; c.ai.nvidia.apiKey = process.env['NVIDIA_API_KEY']; }
     if (process.env['GEMINI_API_KEY'])   { c.ai ??= {}; c.ai.gemini ??= {}; c.ai.gemini.apiKey = process.env['GEMINI_API_KEY']; }
     if (process.env['OPENAI_API_KEY'])   { c.ai ??= {}; c.ai.openai ??= {}; c.ai.openai.apiKey = process.env['OPENAI_API_KEY']; }
     if (process.env['ANTHROPIC_API_KEY'])  { c.ai ??= {}; c.ai.claude ??= {}; c.ai.claude.apiKey = process.env['ANTHROPIC_API_KEY']; }
     if (process.env['OLLAMA_BASE_URL'])  { c.ai ??= {}; c.ai.ollama ??= {}; c.ai.ollama.baseUrl = process.env['OLLAMA_BASE_URL']; }
+    if (process.env['OPENROUTER_API_KEY']) { c.ai ??= {}; c.ai.openrouter ??= {}; c.ai.openrouter.apiKey = process.env['OPENROUTER_API_KEY']; }
 
     // Notification Providers
     if (process.env['TELEGRAM_BOT_TOKEN']) { c.notifications ??= {}; c.notifications.telegram ??= {}; c.notifications.telegram.botToken = process.env['TELEGRAM_BOT_TOKEN']; }
