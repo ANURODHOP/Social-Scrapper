@@ -5,9 +5,10 @@ import fs from 'fs';
 
 const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 const LOGS_DIR = path.join(process.cwd(), 'logs');
+const IS_VERCEL = !!process.env.VERCEL;
 
-// Ensure logs directory exists
-if (!fs.existsSync(LOGS_DIR)) {
+// Ensure logs directory exists only if not on Vercel (read-only filesystem)
+if (!IS_VERCEL && !fs.existsSync(LOGS_DIR)) {
   fs.mkdirSync(LOGS_DIR, { recursive: true });
 }
 
@@ -30,28 +31,29 @@ const logger = winston.createLogger({
   level: LOG_LEVEL,
   defaultMeta: { service: 'social-intelligence-platform' },
   transports: [
-    // Console — always on in development
+    // Console — always on
     new winston.transports.Console({
       format: consoleFormat,
       silent: process.env.NODE_ENV === 'test',
     }),
-    // Daily rotating file — errors only
-    new (winston.transports as any).DailyRotateFile({
-      filename: path.join(LOGS_DIR, 'error-%DATE%.log'),
-      datePattern: 'YYYY-MM-DD',
-      level: 'error',
-      format: fileFormat,
-      maxSize: '10m',
-      maxFiles: '7d',
-    }),
-    // Daily rotating file — all levels
-    new (winston.transports as any).DailyRotateFile({
-      filename: path.join(LOGS_DIR, 'combined-%DATE%.log'),
-      datePattern: 'YYYY-MM-DD',
-      format: fileFormat,
-      maxSize: '20m',
-      maxFiles: '14d',
-    }),
+    // File logging is disabled on Vercel because of read-only filesystem
+    ...(IS_VERCEL ? [] : [
+      new (winston.transports as any).DailyRotateFile({
+        filename: path.join(LOGS_DIR, 'error-%DATE%.log'),
+        datePattern: 'YYYY-MM-DD',
+        level: 'error',
+        format: fileFormat,
+        maxSize: '10m',
+        maxFiles: '7d',
+      }),
+      new (winston.transports as any).DailyRotateFile({
+        filename: path.join(LOGS_DIR, 'combined-%DATE%.log'),
+        datePattern: 'YYYY-MM-DD',
+        format: fileFormat,
+        maxSize: '20m',
+        maxFiles: '14d',
+      }),
+    ]),
   ],
 });
 
