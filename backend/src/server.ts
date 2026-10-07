@@ -25,10 +25,43 @@ const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : (config.get('po
 const NODE_ENV = config.get('nodeEnv');
 
 app.use(helmet());
+
+// ── CORS ────────────────────────────────────────────────────────────────────
+// Build an explicit origin allowlist so CORS never fails due to a missing
+// FRONTEND_URL env-var or a trailing-slash mismatch.
+const ALLOWED_ORIGINS = new Set<string>([
+  'http://localhost:3000',
+  'https://social-scrapper-wa4g.vercel.app', // production frontend (hardcoded fallback)
+]);
+if (process.env['FRONTEND_URL']) {
+  // Also add whatever is set in the env, trimming any trailing slash.
+  ALLOWED_ORIGINS.add(process.env['FRONTEND_URL'].replace(/\/$/, ''));
+}
+
 app.use(cors({
-  origin:      NODE_ENV === 'production' ? process.env['FRONTEND_URL'] : 'http://localhost:3000',
+  origin: (origin, callback) => {
+    // Allow server-to-server / curl (no Origin header) and allowlisted origins.
+    if (!origin || ALLOWED_ORIGINS.has(origin)) return callback(null, true);
+    callback(new Error(`CORS: origin not allowed — ${origin}`));
+  },
   credentials: true,
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 204, // Some legacy browsers choke on 204
 }));
+
+// Explicitly handle preflight for every route so Express never redirects OPTIONS.
+app.options('*', cors({
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.has(origin)) return callback(null, true);
+    callback(new Error(`CORS: origin not allowed — ${origin}`));
+  },
+  credentials: true,
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 204,
+}));
+
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
