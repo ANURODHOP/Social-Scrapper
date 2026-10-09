@@ -18,23 +18,39 @@ router.get('/', async (_req: Request, res: Response): Promise<void> => {
       profileSnap,
       postSnap,
       reportSnap,
-      postsTodaySnap,
-      reelsTodaySnap,
-      recentPostsSnap,
       recentReportsSnap,
       schedulerRunsSnap,
       telegramNotifsSnap,
     ] = await Promise.all([
-      db.collection('profiles').where('deletedAt', '==', null).where('isActive', '==', true).count().get(),
-      db.collection('posts').where('deletedAt', '==', null).count().get(),
+      db.collection('profiles').get(),
+      db.collection('posts').get(),
       db.collection('reports').count().get(),
-      db.collection('posts').where('deletedAt', '==', null).where('createdAt', '>=', today).count().get(),
-      db.collection('posts').where('deletedAt', '==', null).where('createdAt', '>=', today).where('mediaType', 'in', ['VIDEO', 'REEL']).count().get(),
-      db.collection('posts').where('deletedAt', '==', null).orderBy('publishedAt', 'desc').limit(5).get(),
       db.collection('reports').orderBy('generatedAt', 'desc').limit(5).get(),
       db.collection('schedulerRuns').orderBy('startedAt', 'desc').limit(5).get(),
       db.collection('notificationHistory').where('provider', '==', 'telegram').where('status', '==', 'sent').count().get(),
     ]);
+
+    const activeProfilesCount = profileSnap.docs.filter(d => {
+      const data = d.data();
+      return !data.deletedAt && data.isActive === true;
+    }).length;
+
+    const allPosts = postSnap.docs.map(d => ({ id: d.id, ...d.data() }) as any).filter(p => !p.deletedAt);
+    const totalPostsCount = allPosts.length;
+    const postsTodayCount = allPosts.filter(p => p.createdAt && (p.createdAt.toDate ? p.createdAt.toDate() : new Date(p.createdAt)) >= today).length;
+    const reelsTodayCount = allPosts.filter(p => 
+      p.createdAt && 
+      (p.createdAt.toDate ? p.createdAt.toDate() : new Date(p.createdAt)) >= today && 
+      ['VIDEO', 'REEL'].includes(p.mediaType)
+    ).length;
+
+    const recentPosts = [...allPosts]
+      .sort((a, b) => {
+        const dateA = a.publishedAt?.toDate ? a.publishedAt.toDate().getTime() : new Date(a.publishedAt).getTime();
+        const dateB = b.publishedAt?.toDate ? b.publishedAt.toDate().getTime() : new Date(b.publishedAt).getTime();
+        return dateB - dateA;
+      })
+      .slice(0, 5);
 
     let schedulerStatus: { activeCronJobs: Array<{ name: string; expression: string }> } = { activeCronJobs: [] };
     try {
@@ -48,11 +64,11 @@ router.get('/', async (_req: Request, res: Response): Promise<void> => {
 
     res.json(ok({
       stats: {
-        profileCount:  profileSnap.data().count,
-        totalPosts:    postSnap.data().count,
+        profileCount:  activeProfilesCount,
+        totalPosts:    totalPostsCount,
         totalReports:  reportSnap.data().count,
-        postsToday:    postsTodaySnap.data().count,
-        reelsToday:    reelsTodaySnap.data().count,
+        postsToday:    postsTodayCount,
+        reelsToday:    reelsTodayCount,
         telegramSent:  telegramNotifsSnap.data().count,
       },
       scheduler: {
@@ -62,7 +78,7 @@ router.get('/', async (_req: Request, res: Response): Promise<void> => {
         nextRun:       nextRunMs ? new Date(nextRunMs).toISOString() : null,
         activeCronJobs: schedulerStatus.activeCronJobs,
       },
-      recentPosts:         recentPostsSnap.docs.map(d => ({ id: d.id, ...d.data() })),
+      recentPosts,
       recentReports:       recentReportsSnap.docs.map(d => ({ id: d.id, ...d.data() })),
       recentSchedulerRuns: schedulerRuns,
     }));

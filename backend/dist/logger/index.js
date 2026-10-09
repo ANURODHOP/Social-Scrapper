@@ -9,8 +9,9 @@ const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 const LOGS_DIR = path_1.default.join(process.cwd(), 'logs');
-// Ensure logs directory exists
-if (!fs_1.default.existsSync(LOGS_DIR)) {
+const IS_VERCEL = !!process.env.VERCEL;
+// Ensure logs directory exists only if not on Vercel (read-only filesystem)
+if (!IS_VERCEL && !fs_1.default.existsSync(LOGS_DIR)) {
     fs_1.default.mkdirSync(LOGS_DIR, { recursive: true });
 }
 const { combine, timestamp, errors, json, colorize, simple } = winston_1.default.format;
@@ -20,28 +21,29 @@ const logger = winston_1.default.createLogger({
     level: LOG_LEVEL,
     defaultMeta: { service: 'social-intelligence-platform' },
     transports: [
-        // Console — always on in development
+        // Console — always on
         new winston_1.default.transports.Console({
             format: consoleFormat,
             silent: process.env.NODE_ENV === 'test',
         }),
-        // Daily rotating file — errors only
-        new winston_1.default.transports.DailyRotateFile({
-            filename: path_1.default.join(LOGS_DIR, 'error-%DATE%.log'),
-            datePattern: 'YYYY-MM-DD',
-            level: 'error',
-            format: fileFormat,
-            maxSize: '10m',
-            maxFiles: '7d',
-        }),
-        // Daily rotating file — all levels
-        new winston_1.default.transports.DailyRotateFile({
-            filename: path_1.default.join(LOGS_DIR, 'combined-%DATE%.log'),
-            datePattern: 'YYYY-MM-DD',
-            format: fileFormat,
-            maxSize: '20m',
-            maxFiles: '14d',
-        }),
+        // File logging is disabled on Vercel because of read-only filesystem
+        ...(IS_VERCEL ? [] : [
+            new winston_1.default.transports.DailyRotateFile({
+                filename: path_1.default.join(LOGS_DIR, 'error-%DATE%.log'),
+                datePattern: 'YYYY-MM-DD',
+                level: 'error',
+                format: fileFormat,
+                maxSize: '10m',
+                maxFiles: '7d',
+            }),
+            new winston_1.default.transports.DailyRotateFile({
+                filename: path_1.default.join(LOGS_DIR, 'combined-%DATE%.log'),
+                datePattern: 'YYYY-MM-DD',
+                format: fileFormat,
+                maxSize: '20m',
+                maxFiles: '14d',
+            }),
+        ]),
     ],
 });
 exports.default = logger;

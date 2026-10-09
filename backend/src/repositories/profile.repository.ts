@@ -49,9 +49,9 @@ export class ProfileRepository {
   async findAllMonitored(): Promise<ProfileDoc[]> {
     const snap = await db.collection(COL)
       .where('isActive', '==', true)
-      .orderBy('username', 'asc')
       .get();
-    return snap.docs.map(d => toProfile(d.id, d.data()));
+    const profiles = snap.docs.map(d => toProfile(d.id, d.data()));
+    return profiles.sort((a, b) => a.username.localeCompare(b.username));
   }
 
   async findById(id: string): Promise<ProfileDoc | null> {

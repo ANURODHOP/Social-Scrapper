@@ -120,3 +120,51 @@
 {"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-10-07T15:55:22.100Z"}
 {"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-10-07T15:55:22.100Z"}
 {"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-10-07T15:55:22.100Z"}
+{"level":"info","message":"🚀 Server running on http://0.0.0.0:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:31.047Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:31.438Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:31.438Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:31.438Z"}
+{"level":"info","message":"[TELEGRAM] Bot authentication: OK","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:32.013Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:32.016Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:32.016Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:32.016Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:32.017Z"}
+{"level":"info","message":"🚀 Server running on http://0.0.0.0:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:57.764Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:58.140Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:58.141Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:58.141Z"}
+{"level":"info","message":"[TELEGRAM] Bot authentication: OK","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:58.698Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:58.701Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:58.701Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:58.702Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-10-07T16:38:58.702Z"}
+{"level":"info","message":"🚀 Server running on http://0.0.0.0:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:45:01.075Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-10-07T16:45:01.481Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-10-07T16:45:01.481Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-10-07T16:45:01.482Z"}
+{"level":"info","message":"[TELEGRAM] Bot authentication: OK","service":"social-intelligence-platform","timestamp":"2026-10-07T16:45:02.109Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:45:02.111Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:45:02.112Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:45:02.112Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-10-07T16:45:02.112Z"}
+{"level":"info","message":"🚀 Server running on http://0.0.0.0:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:56:21.932Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-10-07T16:56:22.310Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-10-07T16:56:22.311Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-10-07T16:56:22.311Z"}
+{"level":"info","message":"[TELEGRAM] Bot authentication: OK","service":"social-intelligence-platform","timestamp":"2026-10-07T16:56:22.994Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:56:22.997Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:56:22.997Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:56:22.997Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-10-07T16:56:22.998Z"}
+{"error":{},"level":"error","message":"POST /profiles","service":"social-intelligence-platform","timestamp":"2026-10-07T16:56:31.754Z"}
+{"level":"info","message":"🚀 Server running on http://0.0.0.0:8000 [development]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:57:36.342Z"}
+{"level":"info","message":"TelegramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-10-07T16:57:36.707Z"}
+{"level":"info","message":"InstagramHTTPClient: initialized (headless interception via Playwright)","service":"social-intelligence-platform","timestamp":"2026-10-07T16:57:36.708Z"}
+{"level":"info","message":"InstagramProvider: initialized","service":"social-intelligence-platform","timestamp":"2026-10-07T16:57:36.708Z"}
+{"level":"info","message":"[TELEGRAM] Bot authentication: OK","service":"social-intelligence-platform","timestamp":"2026-10-07T16:57:37.886Z"}
+{"level":"info","message":"Scheduler: job \"scrape-profiles\" scheduled [0 * * * *]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:57:37.888Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" scheduled [*/5 * * * *]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:57:37.889Z"}
+{"level":"info","message":"Scheduler: 2 job(s) registered [cron=0 * * * * concurrency=2]","service":"social-intelligence-platform","timestamp":"2026-10-07T16:57:37.889Z"}
+{"level":"info","message":"✅ Dynamic handlers wired. Scheduler started.","service":"social-intelligence-platform","timestamp":"2026-10-07T16:57:37.889Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" started","service":"social-intelligence-platform","timestamp":"2026-10-07T17:00:00.125Z"}
+{"level":"info","message":"Scheduler: job \"health-heartbeat\" completed in 1ms","service":"social-intelligence-platform","timestamp":"2026-10-07T17:00:00.126Z"}

@@ -67,4 +67,15 @@ router.get('/:id/media', async (req: Request, res: Response): Promise<void> => {
   }
 });
 
+// DELETE /api/posts/:id
+router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
+  try {
+    await postRepo.softDelete(req.params['id']!);
+    res.json(ok({ deleted: true }));
+  } catch (err) {
+    logger.error(`DELETE /posts/${req.params['id']}`, { error: err });
+    res.status(500).json(fail('Failed to delete post'));
+  }
+});
+
 export default router;

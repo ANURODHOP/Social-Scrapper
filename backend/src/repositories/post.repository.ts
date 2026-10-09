@@ -99,16 +99,22 @@ export class PostRepository {
   }
 
   async countForProfile(profileId: string): Promise<number> {
-    const snap = await db.collection(COL).where('profileId', '==', profileId).count().get();
-    return snap.data().count;
+    const snap = await db.collection(COL).where('profileId', '==', profileId).get();
+    return snap.docs.filter(d => !d.data()['deletedAt']).length;
+  }
+
+  async softDelete(id: string): Promise<PostDoc> {
+    return this.update(id, { deletedAt: new Date() });
   }
 
   async findAll(limitCount = 50): Promise<PostDoc[]> {
     const snap = await db.collection(COL)
-      .where('deletedAt', '==', null)
       .orderBy('publishedAt', 'desc')
-      .limit(limitCount)
+      .limit(limitCount * 3) // fetch more to account for deleted ones
       .get();
-    return snap.docs.map(d => toPost(d.id, d.data()));
+    
+    return snap.docs.map(d => toPost(d.id, d.data()))
+      .filter(p => !p.deletedAt)
+      .slice(0, limitCount);
   }
 }

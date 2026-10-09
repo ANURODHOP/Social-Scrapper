@@ -63,8 +63,9 @@ router.post('/', async (req, res) => {
         res.status(201).json((0, types_1.ok)(profile));
     }
     catch (err) {
+        const msg = err instanceof Error ? err.message : String(err);
         logger_1.default.error('POST /profiles', { error: err });
-        res.status(500).json((0, types_1.fail)('Failed to create profile'));
+        res.status(500).json((0, types_1.fail)(`Failed to create profile: ${msg}`));
     }
 });
 // PATCH /api/profiles/:id
